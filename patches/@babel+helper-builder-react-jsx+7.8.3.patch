@@ -1,0 +1,14 @@
+diff --git a/node_modules/@babel/helper-builder-react-jsx/lib/index.js b/node_modules/@babel/helper-builder-react-jsx/lib/index.js
+index 6d3e073..3740f28 100644
+--- a/node_modules/@babel/helper-builder-react-jsx/lib/index.js
++++ b/node_modules/@babel/helper-builder-react-jsx/lib/index.js
+@@ -138,7 +138,8 @@ You can turn on the 'throwIfNamespace' flag to bypass this warning.`);
+       attribs = t.nullLiteral();
+     }
+ 
+-    args.push(attribs, ...path.node.children);
++    args.push(attribs);
++    args.push(t.arrayExpression(path.node.children));
+ 
+     if (opts.post) {
+       opts.post(state, file);

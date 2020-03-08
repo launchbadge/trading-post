@@ -1,0 +1,9 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    min-height: inherit;
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
