@@ -7,12 +7,12 @@ export default Vue.defineComponent({
     name: "App",
     render() {
         return (
-            <>
+            <div class="App">
                 <Header />
                 <div class="App-main">
                     <View />
                 </div>
-            </>
+            </div>
         );
     }
 });
@@ -21,6 +21,10 @@ export default Vue.defineComponent({
 <style lang="css">
 /* Found at body in src/index.html */
 #app {
+    min-height: inherit;
+}
+
+.App {
     display: flex;
     min-height: inherit;
     flex-direction: column;
