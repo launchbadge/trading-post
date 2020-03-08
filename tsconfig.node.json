@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "CommonJS",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "moduleResolution": "Node",
+        "removeComments": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true
+    },
+    "include": [
+        "webpack.config.ts",
+        "gulpfile.ts"
+    ]
+}

@@ -1,0 +1,26 @@
+diff --git a/node_modules/vue-router/dist/vue-router.esm-bundler.js b/node_modules/vue-router/dist/vue-router.esm-bundler.js
+index e697d4c..fa5676a 100644
+--- a/node_modules/vue-router/dist/vue-router.esm-bundler.js
++++ b/node_modules/vue-router/dist/vue-router.esm-bundler.js
+@@ -294,7 +294,7 @@ function useHistoryStateNavigation(base) {
+             forward: normalized,
+             scroll: computeScrollPosition(),
+         };
+-        changeLocation(normalized, currentState, true);
++        changeLocation(currentState.current, currentState, true);
+         const state = {
+             ...buildState(location.value, normalized, null),
+             position: currentState.position + 1,
+diff --git a/node_modules/vue-router/dist/vue-router.esm.js b/node_modules/vue-router/dist/vue-router.esm.js
+index bd7deb1..fb875d4 100644
+--- a/node_modules/vue-router/dist/vue-router.esm.js
++++ b/node_modules/vue-router/dist/vue-router.esm.js
+@@ -294,7 +294,7 @@ function useHistoryStateNavigation(base) {
+             forward: normalized,
+             scroll: computeScrollPosition(),
+         };
+-        changeLocation(normalized, currentState, true);
++        changeLocation(currentState.current, currentState, true);
+         const state = {
+             ...buildState(location.value, normalized, null),
+             position: currentState.position + 1,

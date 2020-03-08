@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": [ "ES2015", "DOM" ],
+        "strict": true,
+        "module": "ESNext",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "moduleResolution": "Node",
+        "removeComments": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "jsx": "preserve",
+        "jsxFactory": "h"
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.vue"
+    ]
+}

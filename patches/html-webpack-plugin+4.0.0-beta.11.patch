@@ -1,0 +1,16 @@
+diff --git a/node_modules/html-webpack-plugin/lib/compiler.js b/node_modules/html-webpack-plugin/lib/compiler.js
+index a13abf3..820472f 100644
+--- a/node_modules/html-webpack-plugin/lib/compiler.js
++++ b/node_modules/html-webpack-plugin/lib/compiler.js
+@@ -336,9 +336,9 @@ function isChildCompilerCacheOutdated (mainCompilation, childCompiler) {
+     return false;
+   }
+   // Check if any dependent file was changed after the last compilation
+-  const fileTimestamps = mainCompilation.fileTimestamps;
++  const fileTimestamps = mainCompilation.fileSystemInfo._fileTimestamps;
+   const isCacheOutOfDate = childCompiler.fileDependencies.some((fileDependency) => {
+-    const timestamp = fileTimestamps.get(fileDependency);
++    const timestamp = fileTimestamps.get(fileDependency).timestamp;
+     // If the timestamp is not known the file is new
+     // If the timestamp is larger then the file has changed
+     // Otherwise the file is still the same
