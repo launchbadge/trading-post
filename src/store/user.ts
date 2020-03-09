@@ -38,9 +38,8 @@ export function doesCurrentUserExist(): boolean {
         ? state.network.users.has(state.currentUserPrivateKey.publicKey.toString())
         : false;
 }
-
 // Create a new user object for the current visitor
-export async function createNewUserIfNeeded() {
+export async function createNewUserIfNeeded(name: string) {
     if (doesCurrentUserExistLocally()) {
         // If we locally exist, let's assume that we also exist on the network
         return;
@@ -51,7 +50,7 @@ export async function createNewUserIfNeeded() {
     state.currentUserPublicKey = state.currentUserPrivateKey.publicKey;
 
     // Publish our current user to the network
-    await announce.publish(state.currentUserPrivateKey.publicKey as Ed25519PublicKey);
+    await announce.publish(state.currentUserPrivateKey.publicKey as Ed25519PublicKey, name);
 
     // Remember our key
     window.localStorage.setItem(userPrivateKeyStorageKey, state.currentUserPrivateKey.toString());
