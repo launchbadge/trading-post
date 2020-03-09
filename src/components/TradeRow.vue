@@ -1,13 +1,15 @@
 <script lang="tsx">
 import * as Vue from "vue";
-import { mdiCoinOutline, mdiEmoticonOutline, mdiSwapHorizontalVariant } from "@mdi/js";
+import { mdiCoinOutline, mdiEmoticonOutline, mdiSwapHorizontalVariant, mdiTimelapse } from "@mdi/js";
 import Icon from "./Icon.vue";
 import { User } from "../domain/user";
 import Avatar from "./Avatar.vue";
 import Button from "./Button.vue";
 import { AllEmoji } from "../domain/tokens";
 import EmojiList from "./EmojiList.vue";
-import { Trade } from "../domain/trade";
+import { Trade, TRADE_DURATION } from "../domain/trade";
+import StatusIcon, { AcceptStatus } from "./StatusIcon.vue";
+import { computed } from "vue";
 
 interface Props {
     trade: Trade;
@@ -16,6 +18,8 @@ interface Props {
 
 export default Vue.defineComponent({
     setup(props: Props) {
+        const acceptStatus = computed(() => props.trade.isAccepted ? AcceptStatus.accepted : Date.now() > (props.trade.validStartAt.valueOf() + TRADE_DURATION) ? AcceptStatus.rejected : AcceptStatus.pending );
+
         return () => (
             <div class="TradeRow">
                 <Avatar publicKey={ props.trade.requestor.publicKey } />
@@ -23,6 +27,7 @@ export default Vue.defineComponent({
                 <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
+                <StatusIcon accepted={ acceptStatus.value } />
                 <Button disabled={false} busy={false} onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
             </div>
         );
@@ -42,10 +47,6 @@ export default Vue.defineComponent({
 
 .TradeRow-emojiList {
     margin-inline: 16px;
-}
-
-.TradeRow-viewButton {
-    margin-inline-start: 20px;
 }
 
 .TradeRow-swapIcon {
