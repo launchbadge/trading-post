@@ -1,4 +1,4 @@
-import { TradeRequestEvent } from "../../domain/event";
+import { TradeRequestEvent, EventType } from "../../domain/event";
 import { ConsensusTopicId } from "@hashgraph/sdk";
 import * as hedera from "../../service/hedera";
 import state from "../state";
@@ -11,9 +11,9 @@ let resolvePublish: (() => void) | null = null;
 export async function publish(payload: {
     requestorPublicKey: string;
     requesteePublicKey: string;
-    requestorGold: BigNumber;
+    requestorGold: Gold;
     requestorEmoji: Set<Emoji>;
-    requesteeGold: BigNumber;
+    requesteeGold: Gold;
     requesteeEmoji: Set<Emoji>;
 }): Promise<void> {
     const promise = new Promise((resolve) => {
@@ -21,7 +21,7 @@ export async function publish(payload: {
     });
 
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
-        type: "TradeRequest",
+        type: EventType.TradeRequest,
         payload: {
             requesteePublicKey: payload.requesteePublicKey,
             requestorPublicKey: payload.requestorPublicKey,
@@ -55,6 +55,7 @@ export function handle(event: TradeRequestEvent): void {
         requesteeGold,
         requestorEmoji: new Set(event.payload.requestorEmoji),
         requestorGold,
+        isAccepted: false
     });
 
     const currentUserPublicKey = getCurrentUser()?.publicKey!;

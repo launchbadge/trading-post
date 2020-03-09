@@ -35,9 +35,9 @@ export default Vue.defineComponent({
                     {
                         openTrades.map((i) => (
                             <TradeRow
-                                key={i} trade={ state.network.trades.get(i) }
+                                key={i} trade={ state.network.trades.get(i)! }
                                 onPressView={() => {
-                                    router.push({ name: "Trade", params: { id: i } });
+                                    router.push({ name: "Trade", params: { id: i.toString() } });
                                 }}
                             />
                         ))

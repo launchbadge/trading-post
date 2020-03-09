@@ -2,10 +2,16 @@ import { Emoji, Gold } from "./tokens";
 
 export type Event = AnnounceEvent | TradeRequestEvent | TradeAcceptEvent;
 
+export enum EventType {
+    Announce = "Announce",
+    TradeRequest = "Trade Request",
+    TradeAccept = "Trade Accept"
+}
+
 export interface AnnounceEvent {
     id: number;
     timestamp: Date;
-    type: "Announce";
+    type: EventType.Announce;
     payload: {
         publicKey: string;
     };
@@ -14,7 +20,7 @@ export interface AnnounceEvent {
 export interface TradeRequestEvent {
     id: number;
     timestamp: Date;
-    type: "TradeRequest";
+    type: EventType.TradeRequest;
     payload: {
         requestorPublicKey: string;
         requesteePublicKey: string;
@@ -28,7 +34,7 @@ export interface TradeRequestEvent {
 export interface TradeAcceptEvent {
     id: number;
     timestamp: Date;
-    type: "TradeAccept";
+    type: EventType.TradeAccept;
     payload: {
         tradeId: number;
     };

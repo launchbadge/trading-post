@@ -30,7 +30,7 @@ export default Vue.defineComponent({
         }
 
         return () => {
-            const trade: Trade | null = state.network.trades.get(Number(tradeId));
+            const trade: Trade | undefined = state.network.trades.get(Number(tradeId));
             if (trade == null) {
                 // No point in continuing if someone refreshed the page
                 return null;
@@ -65,6 +65,9 @@ export default Vue.defineComponent({
                             user={ trade.requestor }
                             gold={ trade.requestorGold }
                             emoji={ trade.requestorEmoji }
+                            onChangeGold={()=>{}}
+                            onAddEmoji={()=>{}}
+                            onRemoveEmoji={()=>{}}
                         />
                         <Icon class="Trade-swapIcon" d={ mdiSwapHorizontalVariant } />
                         <TradeWindow
@@ -72,6 +75,9 @@ export default Vue.defineComponent({
                             user={ trade.requestee }
                             gold={ trade.requesteeGold }
                             emoji={ trade.requesteeEmoji }
+                            onChangeGold={()=>{}}
+                            onAddEmoji={()=>{}}
+                            onRemoveEmoji={()=>{}}
                         />
                     </div>
                 </div>

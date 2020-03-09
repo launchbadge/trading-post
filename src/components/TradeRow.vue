@@ -18,12 +18,12 @@ export default Vue.defineComponent({
     setup(props: Props) {
         return () => (
             <div class="TradeRow">
-                <Avatar />
+                <Avatar d="" />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
                 <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
-                <Avatar />
-                <Button onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
+                <Avatar d="" />
+                <Button disabled={false} busy={false} onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
             </div>
         );
     }

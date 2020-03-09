@@ -1,8 +1,7 @@
-import { AnnounceEvent } from "../../domain/event";
+import { AnnounceEvent, EventType } from "../../domain/event";
 import { User } from "../../domain/user";
-import { reactive } from "Vue";
 import state from "../state";
-import { Emoji, Gold, AllEmoji } from "../../domain/tokens";
+import { Emoji, Gold } from "../../domain/tokens";
 import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";
 import * as hedera from "../../service/hedera";
 import BigNumber from "bignumber.js";
@@ -16,7 +15,7 @@ export async function publish(publicKey: Ed25519PublicKey): Promise<void> {
         resolvePublishByKey.set(publicKeyText, resolve));
 
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
-        type: "Announce",
+        type: EventType.Announce,
         payload: {
             publicKey: publicKeyText
         }
@@ -51,6 +50,7 @@ function take<T>(all: Set<T>, seed: number, count: number): Set<T> {
         const choice = (seed + i) % (available.length - i);
 
         chosen.add(available[ choice ]);
+        // @ts-ignore
         all.delete(choice);
     }
 

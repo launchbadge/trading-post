@@ -6,14 +6,14 @@ import { mdiCoinOutline } from "@mdi/js";
 import { useRoute } from "vue-router";
 import { getUser } from "../store/user";
 import Avatar from "../components/Avatar.vue";
-import { AllEmoji, Emoji } from "../domain/tokens";
+import { AllEmoji, Emoji, Gold } from "../domain/tokens";
 import { User } from "../domain/user";
 import BigNumber from "bignumber.js";
 
 interface Props {
     user: User;
     emoji: Set<Emoji>;
-    gold: BigNumber;
+    gold: Gold;
     readonly: boolean;
 
     onChangeGold: (gold: BigNumber) => void;
@@ -48,7 +48,7 @@ export default Vue.defineComponent({
             return (
                 <div class="TradeWindow">
                     <div class="TradeWindow-user">
-                        <Avatar />
+                        <Avatar d=""/>
                         <div class="TradeWindow-userMeta">
                             <div class="TradeWindow-userName">{ props.user.name }</div>
                             <div class="TradeWindow-userKey">{ props.user.publicKey.slice("302a300506032b6570032100".length) }</div>

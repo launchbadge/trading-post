@@ -1,4 +1,4 @@
-import { Event } from "../../domain/event";
+import { Event, EventType } from "../../domain/event";
 import * as announce from "./announce";
 import * as tradeRequest from "./trade-request";
 import * as tradeAccept from "./trade-accept";
@@ -7,15 +7,15 @@ export function handle(event: Event): void {
     console.log("handle event,", event);
 
     switch (event.type) {
-        case "Announce":
+        case EventType.Announce:
             announce.handle(event);
             break;
 
-        case "TradeRequest":
+        case EventType.TradeRequest:
             tradeRequest.handle(event);
             break;
 
-        case "TradeAccept":
+        case EventType.TradeAccept:
             tradeAccept.handle(event);
             break;
     }

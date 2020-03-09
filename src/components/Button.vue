@@ -2,8 +2,8 @@ a<script lang="tsx">
 import * as Vue from "vue";
 
 interface Props {
-    disabled: boolean;
-    busy: boolean;
+    disabled?: boolean;
+    busy?: boolean;
     onClick: () => void;
 }
 

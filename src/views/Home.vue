@@ -18,17 +18,21 @@ export default Vue.defineComponent({
             <div class="Home">
                 {/* TODO: Get the current user object here */}
                 <UserRow
-                    user={getCurrentUser()}
+                    user={getCurrentUser()!}
                     onPressTrade={handlePressTrade}
                 />
                 <div class="Home-heading">
                     Open Trades
                 </div>
-                <OpenTrades />
+                <OpenTrades
+                    user={getCurrentUser()!}
+                />
                 <div class="Home-heading">
                     Recent Trades
                 </div>
-                <Trades />
+                <Trades
+                    user={getCurrentUser()!}
+                />
             </div>
         );
     }

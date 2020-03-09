@@ -11,7 +11,7 @@ export default Vue.defineComponent({
     name: "App",
     setup() {
         Vue.onBeforeMount(() => {
-            void startListening(state.topicId);
+            void startListening(state.topicId!);
             void createNewUserIfNeeded();
         });
 

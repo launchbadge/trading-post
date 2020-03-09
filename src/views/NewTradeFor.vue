@@ -55,9 +55,9 @@ export default Vue.defineComponent({
             }
 
             const submitButtonDisabled = !(
-                (requestor.gold > 0 ||
+                (requestor.gold.isGreaterThan(new BigNumber(0)) ||
                 requestor.emoji.size > 0) &&
-                (requestee.gold > 0 ||
+                (requestee.gold.isGreaterThan(new BigNumber(0)) ||
                 requestee.emoji.size > 0)
             );
 
@@ -79,7 +79,7 @@ export default Vue.defineComponent({
                     <div class="NewTradeFor-main">
                         <TradeWindow
                             user={ user }
-                            gold={ requestee.gold }
+                            gold={ requestee.gold as Gold }
                             emoji={ requestee.emoji }
                             onChangeGold={(gold) => {
                                 if (!submitting.value) requestee.gold = gold;
@@ -90,11 +90,12 @@ export default Vue.defineComponent({
                             onRemoveEmoji={(emoji) => {
                                 if (!submitting.value) requestee.emoji.delete(emoji);
                             }}
+                            readonly={false}
                         />
                         <Icon class="NewTradeFor-swapIcon" d={ mdiSwapHorizontalVariant } />
                         <TradeWindow
-                            user={ getCurrentUser() }
-                            gold={ requestor.gold }
+                            user={ getCurrentUser()! }
+                            gold={ requestor.gold as Gold }
                             emoji={ requestor.emoji }
                             onChangeGold={(gold) => {
                                 if (!submitting.value) requestor.gold = gold;
@@ -105,6 +106,7 @@ export default Vue.defineComponent({
                             onRemoveEmoji={(emoji) => {
                                 if (!submitting.value) requestor.emoji.delete(emoji);
                             }}
+                            readonly={false}
                         />
                     </div>
                 </div>

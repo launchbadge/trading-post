@@ -8,12 +8,12 @@ import { Trade } from "../domain/trade";
 export interface State {
     topicId: string | null;
     network: Network;
-    currentUserPublicKey: Ed25519PublicKey;
+    currentUserPublicKey: Ed25519PublicKey | null;
 }
 
 export default Vue.reactive<State>({
     topicId: "0.0.193429",
-    currentUserPublicKey: Ed25519PublicKey,
+    currentUserPublicKey: null,
     network: {
         availableEmoji: new Set(AllEmoji.keys()),
         users: new Map<string, User>(),

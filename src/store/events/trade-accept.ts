@@ -1,11 +1,12 @@
-import { TradeAcceptEvent } from "../../domain/event";
+import { TradeAcceptEvent, EventType } from "../../domain/event";
 import * as hedera from "../../service/hedera";
 import { ConsensusTopicId } from "@hashgraph/sdk";
 import state from "../state";
+import { Gold } from "../../domain/tokens";
 
 export async function publish(tradeId: number): Promise<void> {
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
-        type: "TradeAccept",
+        type: EventType.TradeAccept,
         payload: {
             tradeId,
         }
@@ -20,11 +21,11 @@ export function handle(event: TradeAcceptEvent): void {
     // Exchange Gold
     trade.requestor.balance.gold = trade.requestor.balance.gold
         .minus(trade.requestorGold)
-        .plus(trade.requesteeGold);
+        .plus(trade.requesteeGold) as Gold;
 
     trade.requestee.balance.gold = trade.requestee.balance.gold
         .minus(trade.requesteeGold)
-        .plus(trade.requestorGold);
+        .plus(trade.requestorGold) as Gold;
 
     // Exchange Emoji
     for (const emoji of trade.requestorEmoji) {
