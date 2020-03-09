@@ -111,7 +111,7 @@ export default Vue.defineComponent({
 .Trade-main {
     display: grid;
     grid-column-gap: 20px;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: 1fr auto 1fr;
 }
 
 .Trade-subTitle {

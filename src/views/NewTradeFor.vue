@@ -140,7 +140,7 @@ export default Vue.defineComponent({
 .NewTradeFor-main {
     display: grid;
     grid-column-gap: 20px;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: 1fr auto 1fr;
 }
 
 .NewTradeFor-subTitle {
