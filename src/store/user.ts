@@ -29,7 +29,7 @@ export function getUser(key: string): User | null {
 
 // True if the current user exists locally (aka. visited the app before)
 export function doesCurrentUserExistLocally(): boolean {
-    return state.currentUserPrivateKey != null;
+    return (getCurrentUserPrivateKey() ?? state.currentUserPrivateKey) != null;
 }
 
 // True if the user exists on the network (at this time)
