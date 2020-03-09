@@ -1,6 +1,6 @@
 <script lang="tsx">
 import * as Vue from "vue";
-
+import Spinner from "./Spinner.vue";
 interface Props {
     disabled?: boolean;
     busy?: boolean;
@@ -11,7 +11,7 @@ export default Vue.defineComponent({
     setup(props: Props, context) {
         return () => (
             <button onClick={props.onClick} class={["Button", {"is-busy": props.busy}]} disabled={ props.disabled || props.busy }>
-                { props.busy ? "..." : context.slots.default?.() }
+                { props.busy ? <Spinner /> : context.slots.default?.() }
             </button>
         );
     }
@@ -39,11 +39,6 @@ export default Vue.defineComponent({
         background-color: rgba(255, 255, 255, 0.3);
         color: rgba(255, 255, 255, 0.7);
     }
-
-    &.is-busy {
-        cursor: default;
-        color: var(--colorWhite);
-        background-color: color-mod(var(--colorBeer) shade(10%));
-    }
+    
 }
 </style>
