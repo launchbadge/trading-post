@@ -28,6 +28,7 @@ export default Vue.defineComponent({
     color: var(--colorWhite);
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: var(--colorBeer);
     border-radius: 2px;
     font-size: inherit;

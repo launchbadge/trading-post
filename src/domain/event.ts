@@ -14,6 +14,7 @@ export interface AnnounceEvent {
     type: EventType.Announce;
     payload: {
         publicKey: string;
+        name: string;
     };
 }
 

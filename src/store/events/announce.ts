@@ -1,5 +1,6 @@
 import { AnnounceEvent, EventType } from "../../domain/event";
 import { User } from "../../domain/user";
+import { getUserName } from "../user";
 import state from "../state";
 import { Emoji, Gold } from "../../domain/tokens";
 import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";
@@ -8,7 +9,7 @@ import BigNumber from "bignumber.js";
 
 const resolvePublishByKey: Map<string, () => void> = new Map();
 
-export async function publish(publicKey: Ed25519PublicKey): Promise<void> {
+export async function publish(publicKey: Ed25519PublicKey, name: string): Promise<void> {
     const publicKeyText = publicKey.toString();
 
     const promise = new Promise((resolve) =>
@@ -17,7 +18,8 @@ export async function publish(publicKey: Ed25519PublicKey): Promise<void> {
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
         type: EventType.Announce,
         payload: {
-            publicKey: publicKeyText
+            publicKey: publicKeyText,
+            name 
         }
     })
 
@@ -31,11 +33,10 @@ export function handle(event: AnnounceEvent): void {
             emoji: take<Emoji>(state.network.availableEmoji, event.timestamp.valueOf(), 10),
             gold: new BigNumber(10000) as Gold,
         },
-        name: "?"
+        name: event.payload.name
     };
 
     state.network.users.set(user.publicKey, user);
-
     // If someone is waiting for a resolution on an announce, trigger the promise
     resolvePublishByKey.get(event.payload.publicKey)?.();
 }

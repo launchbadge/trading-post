@@ -2,39 +2,41 @@
 import * as Vue from "vue";
 import { View } from "vue-router";
 import Header from "./components/Header.vue";
-import Splash from "./components/Splash.vue";
+import Signup from "./views/Signup.vue";
 import { createNewUserIfNeeded, doesCurrentUserExist } from "./store/user";
 import { startListening } from "./service/mirror";
 import state from "./store/state";
+import { computed } from "vue";
 
 export default Vue.defineComponent({
     name: "App",
     setup() {
         Vue.onBeforeMount(() => {
             void startListening(state.topicId!);
-            void createNewUserIfNeeded();
         });
+        
+        const main = Vue.ref(<Signup />)    
+        Vue.watch(
+            () => doesCurrentUserExist(), 
+            (newVal) => {
+                if (newVal) {
+                    main.value = (
+                        <div class="App-main">
+                            <View/>
+                        </div>
+                    )
+                } else {
+                    main.value = <Signup />
+                }
+            } 
+            )
 
-        return () => {
-            let main;
-
-            if (doesCurrentUserExist()) {
-                main = (
-                    <div class="App-main">
-                        <View/>
-                    </div>
-                );
-            } else {
-                main = (<Splash />);
-            }
-
-            return (
-                <div class="App">
-                    <Header/>
-                    { main }
-                </div>
-            );
-        };
+        return() => (
+            <div class="App">
+                <Header/>
+                { main.value }
+            </div>
+        );
     }
 });
 </script>

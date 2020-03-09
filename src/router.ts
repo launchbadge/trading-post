@@ -5,6 +5,7 @@ import NewTradeWith from "./views/NewTradeWith.vue";
 import NewTradeFor from "./views/NewTradeFor.vue";
 import Trade from "./views/Trade.vue";
 
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
