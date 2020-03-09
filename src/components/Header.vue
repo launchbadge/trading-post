@@ -5,14 +5,14 @@ import { mdiStoreOutline, mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
 import Avatar from "./Avatar.vue";
 import state from "../store/state";
 import { getCurrentUser } from "../store/user";
-
+import { Link as RouterLink } from "vue-router";
 import logo from "../assets/trading-post.svg";
 
 export default Vue.defineComponent({
     render() {
         return (
             <header class="Header">
-                <img src={logo} class="Header-logo" alt="Trading Post" />
+                <RouterLink to={{name: "Home"}}><img src={logo} class="Header-logo" alt="Trading Post" /></RouterLink>
                 <Avatar publicKey={ getCurrentUser() != null ? getCurrentUser()!.publicKey.toString() : "" } />
             </header>
         );
