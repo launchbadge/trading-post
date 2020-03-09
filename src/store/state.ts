@@ -3,6 +3,7 @@ import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";
 import { Network } from "../domain/network";
 import { User } from "../domain/user";
 import { AllEmoji } from "../domain/tokens";
+import { Trade } from "../domain/trade";
 
 export interface State {
     topicId: string | null;
@@ -16,6 +17,7 @@ export default Vue.reactive<State>({
     network: {
         availableEmoji: new Set(AllEmoji.keys()),
         users: new Map<string, User>(),
-        trades: [],
+        trades: new Map<number, Trade>(),
+        openTrades: []
     },
 });

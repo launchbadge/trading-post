@@ -6,5 +6,6 @@ export interface Network {
     // The remaining Emoji that are available for distribution
     availableEmoji: Set<Emoji>;
     users: Map<string, User>;
-    trades: Trade[];
+    trades: Map<number, Trade>;
+    openTrades: number[];
 }

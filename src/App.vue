@@ -3,7 +3,7 @@ import * as Vue from "vue";
 import { View } from "vue-router";
 import Header from "./components/Header.vue";
 import Splash from "./components/Splash.vue";
-import { createNewUserIfNeeded, currentUserExists } from "./store/user";
+import { createNewUserIfNeeded, doesCurrentUserExist } from "./store/user";
 import { startListening } from "./service/mirror";
 import state from "./store/state";
 
@@ -18,9 +18,7 @@ export default Vue.defineComponent({
         return () => {
             let main;
 
-            console.log("hello?!");
-
-            if (currentUserExists()) {
+            if (doesCurrentUserExist()) {
                 main = (
                     <div class="App-main">
                         <View/>

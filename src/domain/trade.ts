@@ -8,6 +8,9 @@ export interface Trade {
     // The sequence number on the network
     id: number;
 
+    // states of a trade are PENDING, ACCEPTED, and EXPIRED
+    isAccepted: boolean;
+
     requestor: User;
     requestorGold: Gold;
     requestorEmoji: Set<Emoji>;

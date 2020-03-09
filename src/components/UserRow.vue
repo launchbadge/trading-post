@@ -3,11 +3,12 @@ import * as Vue from "vue";
 import { mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
 import Icon from "./Icon.vue";
 import { User } from "../domain/user";
+import EmojiList from "./EmojiList.vue";
 import { AllEmoji } from "../domain/tokens";
 
 interface Props {
     user: User;
-    onTrade: () => void;
+    onPressTrade: () => void;
 }
 
 export default Vue.defineComponent({
@@ -25,11 +26,7 @@ export default Vue.defineComponent({
                 </div>
                 <div class="Holder-balance">
                     <span class="Holder-balanceAmount">
-                        {
-                            Array.from(props.user.balance.emoji).map((i) => (
-                                <span class="Holder-emoji">{ AllEmoji[i] }</span>
-                            ))
-                        }
+                        <EmojiList emoji={ props.user.balance.emoji } />
                     </span>
                     <Icon class="Holder-balanceIcon" d={ mdiEmoticonOutline } />
                 </div>
@@ -37,7 +34,7 @@ export default Vue.defineComponent({
                     <span class="Holder-balanceAmount">{ props.user.balance.gold.toFormat() }</span>
                     <Icon class="Holder-balanceIcon" d={ mdiCoinOutline } />
                 </div>
-                <button class="Holder-newTrade" onClick={props.onTrade} >
+                <button class="Holder-newTrade" onClick={ props.onPressTrade } >
                     Trade
                 </button>
             </div>
@@ -56,7 +53,7 @@ export default Vue.defineComponent({
     align-items: center;
 }
 
-.Holder-emoji {
+.Holder .EmojiList-emoji {
     margin-inline-start: 12px;
 }
 

@@ -25,7 +25,6 @@ export async function publish(publicKey: Ed25519PublicKey): Promise<void> {
     await promise;
 }
 
-
 export function handle(event: AnnounceEvent): void {
     const user: User = {
         publicKey: event.payload.publicKey,

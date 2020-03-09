@@ -1,30 +1,34 @@
 <script lang="tsx">
 import * as Vue from "vue";
-import User from "../components/User.vue";
+import UserRow from "../components/UserRow.vue";
+import OpenTrades from "../components/OpenTrades.vue";
+import Trades from "../components/Trades.vue";
+import { getCurrentUser } from "../store/user";
 import { useRouter } from "vue-router";
 
 export default Vue.defineComponent({
     setup() {
         const router = useRouter();
 
+        function handlePressTrade() {
+            router.push({ name: "NewTradeWith" });
+        }
+
         return () => (
             <div class="Home">
                 {/* TODO: Get the current user object here */}
-                <User onTrade={() => {
-                    router.push({name: "NewTrade"});
-                }} />
+                <UserRow
+                    user={getCurrentUser()}
+                    onPressTrade={handlePressTrade}
+                />
                 <div class="Home-heading">
                     Open Trades
                 </div>
-                <div class="Home-area">
-                    No open trades
-                </div>
+                <OpenTrades />
                 <div class="Home-heading">
                     Recent Trades
                 </div>
-                <div class="Home-area">
-                    No trades
-                </div>
+                <Trades />
             </div>
         );
     }
@@ -41,7 +45,7 @@ export default Vue.defineComponent({
 .Home-heading {
     color: var(--colorWhite);
     margin-block-start: 32px;
-    margin-block-end: 8px;
+    margin-block-end: 14px;
 }
 
 .Home-area {

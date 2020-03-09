@@ -4,7 +4,7 @@ import * as tradeRequest from "./trade-request";
 import * as tradeAccept from "./trade-accept";
 
 export function handle(event: Event): void {
-    console.log(event);
+    console.log("handle event,", event);
 
     switch (event.type) {
         case "Announce":

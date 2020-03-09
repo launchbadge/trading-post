@@ -1,6 +1,7 @@
 import state from "./state";
 import { Ed25519PrivateKey } from "@hashgraph/sdk";
 import * as announce from "./events/announce";
+import { User } from "../domain/user";
 
 const userPrivateKeyStorageKey = "trading-post:self:key";
 
@@ -15,13 +16,21 @@ function getCurrentUserPrivateKey(): Ed25519PrivateKey | null {
     return Ed25519PrivateKey.fromString(keyText);
 }
 
+export function getCurrentUser(): User | null {
+    return getUser(getCurrentUserPrivateKey()?.publicKey?.toString() ?? "");
+}
+
+export function getUser(key: string): User | null {
+    return state.network.users.get(key) ?? null;
+}
+
 // True if the current user exists locally (aka. visited the app before)
-export function currentUserExistsLocally(): boolean {
+export function doesCurrentUserExistLocally(): boolean {
     return currentUserPrivateKey != null;
 }
 
 // True if the user exists on the network (at this time)
-export function currentUserExists(): boolean {
+export function doesCurrentUserExist(): boolean {
     return currentUserPrivateKey != null
         ? state.network.users.has(currentUserPrivateKey.publicKey.toString())
         : false;
@@ -30,7 +39,7 @@ export function currentUserExists(): boolean {
 // Create a new user object for the current visitor
 // TODO: name?
 export async function createNewUserIfNeeded() {
-    if (currentUserExistsLocally()) {
+    if (doesCurrentUserExistLocally()) {
         // If we locally exist, let's assume that we also exist on the network
         return;
     }
