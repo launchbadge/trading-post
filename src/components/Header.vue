@@ -11,7 +11,7 @@ export default Vue.defineComponent({
         return (
             <header class="Header">
                 <span class="Header-logo">Trading Post</span>
-                <Avatar publicKey={ getCurrentUser()!.publicKey.toString() ?? "" } />
+                <Avatar publicKey={ getCurrentUser() != null ? getCurrentUser()!.publicKey.toString() : "" } />
             </header>
         );
     }

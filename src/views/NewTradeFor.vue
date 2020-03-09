@@ -38,10 +38,10 @@ export default Vue.defineComponent({
             await tradeRequest.publish({
                 requesteePublicKey: userKey!.toString(),
                 requesteeEmoji: requestee.emoji,
-                requesteeGold: new BigNumber(requestee.gold),
+                requesteeGold: requestee.gold as Gold,
                 requestorPublicKey: getCurrentUser()!.publicKey,
                 requestorEmoji: requestor.emoji,
-                requestorGold: new BigNumber(requestor.gold),
+                requestorGold: requestor.gold as Gold,
             });
 
             await router.push({ name: "Home" });

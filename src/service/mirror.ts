@@ -3,6 +3,7 @@ import { Event } from "../domain/event";
 import { handle } from "../store/events/handle";
 import { ConsensusTopicIdLike } from "@hashgraph/sdk/lib/consensus/ConsensusTopicId";
 
+// Envoy Proxy
 const MIRROR_NODE_ADDRESS = "http://localhost:11206";
 
 const mirrorClient = new MirrorClient(MIRROR_NODE_ADDRESS);

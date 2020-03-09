@@ -1,19 +1,22 @@
 import state from "./state";
-import { Ed25519PrivateKey } from "@hashgraph/sdk";
+import { Ed25519PrivateKey, Ed25519PublicKey } from "@hashgraph/sdk";
 import * as announce from "./events/announce";
 import { User } from "../domain/user";
 
 const userPrivateKeyStorageKey = "trading-post:self:key";
 
-let currentUserPrivateKey: Ed25519PrivateKey | null = getCurrentUserPrivateKey();
+export function getCurrentUserPrivateKey(): Ed25519PrivateKey | null {
+    if (state.currentUserPrivateKey == null) {
+        const keyText = window.localStorage.getItem(userPrivateKeyStorageKey);
+        if (keyText == null) {
+            return null;
+        }
 
-function getCurrentUserPrivateKey(): Ed25519PrivateKey | null {
-    const keyText = window.localStorage.getItem(userPrivateKeyStorageKey);
-    if (keyText == null) {
-        return null;
+        state.currentUserPrivateKey = Ed25519PrivateKey.fromString(keyText);
+        state.currentUserPublicKey = state.currentUserPrivateKey.publicKey;
     }
 
-    return Ed25519PrivateKey.fromString(keyText);
+    return state.currentUserPrivateKey as Ed25519PrivateKey;
 }
 
 export function getCurrentUser(): User | null {
@@ -26,18 +29,17 @@ export function getUser(key: string): User | null {
 
 // True if the current user exists locally (aka. visited the app before)
 export function doesCurrentUserExistLocally(): boolean {
-    return currentUserPrivateKey != null;
+    return state.currentUserPrivateKey != null;
 }
 
 // True if the user exists on the network (at this time)
 export function doesCurrentUserExist(): boolean {
-    return currentUserPrivateKey != null
-        ? state.network.users.has(currentUserPrivateKey.publicKey.toString())
+    return state.currentUserPrivateKey != null
+        ? state.network.users.has(state.currentUserPrivateKey.publicKey.toString())
         : false;
 }
 
 // Create a new user object for the current visitor
-// TODO: name?
 export async function createNewUserIfNeeded() {
     if (doesCurrentUserExistLocally()) {
         // If we locally exist, let's assume that we also exist on the network
@@ -45,11 +47,12 @@ export async function createNewUserIfNeeded() {
     }
 
     // Generate a new key to use
-    currentUserPrivateKey = await Ed25519PrivateKey.generate();
+    state.currentUserPrivateKey = await Ed25519PrivateKey.generate();
+    state.currentUserPublicKey = state.currentUserPrivateKey.publicKey;
 
     // Publish our current user to the network
-    await announce.publish(currentUserPrivateKey.publicKey);
+    await announce.publish(state.currentUserPrivateKey.publicKey as Ed25519PublicKey);
 
     // Remember our key
-    window.localStorage.setItem(userPrivateKeyStorageKey, currentUserPrivateKey.toString());
+    window.localStorage.setItem(userPrivateKeyStorageKey, state.currentUserPrivateKey.toString());
 }

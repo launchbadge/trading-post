@@ -1,9 +1,10 @@
 import path from "path";
 import merge from "webpack-merge";
-import type { Options, Configuration } from "webpack";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import VueLoaderPlugin from "vue-loader/dist/plugin";
+import Dotenv from "dotenv-webpack";
+import { Configuration, Options } from "webpack";
 
 const common: Configuration = {
     entry: {
@@ -51,6 +52,7 @@ const common: Configuration = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new Dotenv(),
         // @ts-ignore
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
