@@ -9,7 +9,7 @@ export default Vue.defineComponent({
 
         return () => (
             <div class="Home">
-                <Holder onClick={() => {
+                <Holder onTrade={() => {
                     router.push({name: "NewTrade"});
                 }} />
                 <div class="Home-heading">

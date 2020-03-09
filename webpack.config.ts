@@ -6,13 +6,23 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import VueLoaderPlugin from "vue-loader/dist/plugin";
 
 const common: Configuration = {
-    entry: { app: path.resolve(__dirname, "src/index.ts") },
+    entry: {
+        app: [
+            path.resolve(__dirname, "src/shims.ts"),
+            path.resolve(__dirname, "src/index.ts")
+        ]
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].[contenthash].js"
+        filename: "[name].js"
     },
     resolve: {
         extensions: [ ".js", ".ts", ".tsx" ],
+        alias: {
+            "stream": "stream-browserify",
+            "crypto": "crypto-browserify",
+            "vm": "vm-browserify"
+        }
     },
     module: {
         rules: [
@@ -52,7 +62,7 @@ const common: Configuration = {
 // @ts-ignore
 const development: Configuration = {
     mode: "development",
-    devtool: "eval-nosources-cheap-module-source-map" as Options.Devtool,
+    devtool: "cheap-module-source-map" as Options.Devtool,
 };
 
 // TODO: Use https://webpack.js.org/plugins/mini-css-extract-plugin/

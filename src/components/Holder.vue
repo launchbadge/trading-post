@@ -4,7 +4,7 @@ import { mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
 import Icon from "./Icon.vue";
 
 interface Props {
-    onClick: () => void;
+    onTrade: () => void;
 }
 
 export default Vue.defineComponent({
@@ -28,7 +28,7 @@ export default Vue.defineComponent({
                     <span class="Holder-balanceAmount">12,412.231</span>
                     <Icon class="Holder-balanceIcon" d={ mdiCoinOutline } />
                 </div>
-                <button class="Holder-newTrade" onClick={props.onClick} >
+                <button class="Holder-newTrade" onClick={props.onTrade} >
                     Trade
                 </button>
             </div>
