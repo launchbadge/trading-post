@@ -47,6 +47,22 @@ const common: Configuration = {
                     },
                     "postcss-loader"
                 ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/u,
+                include: path.resolve(__dirname, "src"),
+                use: [
+                    {
+                        loader: "url-loader",
+                        options: {
+                            fallback: "file-loader",
+                            limit: 8192
+                        }
+                    },
+                    {
+                        loader: "img-loader",
+                    }
+                ]
             }
         ]
     },

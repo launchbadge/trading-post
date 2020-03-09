@@ -6,11 +6,13 @@ import Avatar from "./Avatar.vue";
 import state from "../store/state";
 import { getCurrentUser } from "../store/user";
 
+import logo from "../assets/trading-post.svg";
+
 export default Vue.defineComponent({
     render() {
         return (
             <header class="Header">
-                <span class="Header-logo">Trading Post</span>
+                <span class="Header-logo"><img src={logo} alt="Trading Post" /></span>
                 <Avatar publicKey={ getCurrentUser() != null ? getCurrentUser()!.publicKey.toString() : "" } />
             </header>
         );
@@ -28,8 +30,7 @@ export default Vue.defineComponent({
 }
 
 .Header-logo {
-    color: var(--colorWhite);
     flex-grow: 1;
-    font-size: 24px;
 }
+
 </style>
