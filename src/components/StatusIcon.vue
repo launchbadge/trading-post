@@ -37,8 +37,8 @@ export default Vue.defineComponent({
 
 <style>
 .StatusIcon {
-    height: 32px;
-    margin-inline: 20px;
+    height: 24px;
+    margin-inline: 16px;
     fill: var(--colorWhite);
 }
 
