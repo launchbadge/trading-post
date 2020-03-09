@@ -12,7 +12,7 @@ export default Vue.defineComponent({
     render() {
         return (
             <header class="Header">
-                <span class="Header-logo"><img src={logo} alt="Trading Post" /></span>
+                <img src={logo} class="Header-logo" alt="Trading Post" />
                 <Avatar publicKey={ getCurrentUser() != null ? getCurrentUser()!.publicKey.toString() : "" } />
             </header>
         );
@@ -26,11 +26,12 @@ export default Vue.defineComponent({
     background-color: var(--colorAbsenceOfLight);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     align-items: center;
+    justify-content: space-between;
     padding: 16px;
 }
 
 .Header-logo {
-    flex-grow: 1;
+    width: 135px;
+    height: 30px;
 }
-
 </style>
