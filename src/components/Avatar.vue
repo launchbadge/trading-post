@@ -10,7 +10,7 @@ interface Props {
 export default Vue.defineComponent({
     setup(props: Props) {
         const contents = Vue.computed(() => {
-            return jdenticon.toSvg(props.publicKey, 36, { replaceMode: "never" });
+            return jdenticon.toSvg(props.publicKey.slice("302a300506032b6570032100".length), 36, { replaceMode: "never" });
         });
 
         const container = Vue.ref<HTMLElement | null>(null);

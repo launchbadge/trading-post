@@ -9,6 +9,7 @@ import Avatar from "../components/Avatar.vue";
 import { AllEmoji, Emoji, Gold } from "../domain/tokens";
 import { User } from "../domain/user";
 import BigNumber from "bignumber.js";
+import UserVue from "./User.vue";
 
 interface Props {
     user: User;
@@ -48,11 +49,7 @@ export default Vue.defineComponent({
             return (
                 <div class="TradeWindow">
                     <div class="TradeWindow-user">
-                        <Avatar publicKey={ props.user.publicKey.toString() } />
-                        <div class="TradeWindow-userMeta">
-                            <div class="TradeWindow-userName">{ props.user.name }</div>
-                            <div class="TradeWindow-userKey">{ props.user.publicKey.slice("302a300506032b6570032100".length) }</div>
-                        </div>
+                        <UserVue user={ props.user }/>
                     </div>
                     <div class="TradeWindow-main">
                         {
@@ -95,24 +92,6 @@ export default Vue.defineComponent({
 .TradeWindow-user {
     background-color: var(--colorBlackGrey);
     padding: 16px;
-    display: flex;
-}
-
-.TradeWindow-userMeta {
-    display: flex;
-    margin-inline-start: 20px;
-    flex-direction: column;
-}
-
-.TradeWindow-userName {
-    margin-block-end: 6px;
-}
-
-.TradeWindow-userKey {
-    opacity: 0.5;
-    max-width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 
 .TradeWindow-main {

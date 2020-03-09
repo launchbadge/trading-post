@@ -6,6 +6,7 @@ import { User } from "../domain/user";
 import EmojiList from "./EmojiList.vue";
 import { AllEmoji } from "../domain/tokens";
 import Avatar from "./Avatar.vue";
+import UserVue from "./User.vue";
 
 interface Props {
     user: User;
@@ -16,14 +17,8 @@ export default Vue.defineComponent({
     setup(props: Props) {
         return () => (
             <div class="Holder">
-                <Avatar publicKey={ props.user.publicKey } />
                 <div class="Holder-info">
-                    <div class="Holder-name">
-                        { props.user.name }
-                    </div>
-                    <div class="Holder-publicKey">
-                        { props.user.publicKey.slice("302a300506032b6570032100".length) }
-                    </div>
+                    <UserVue user={ props.user } />
                 </div>
                 <div class="Holder-balance">
                     <span class="Holder-balanceAmount">
@@ -69,7 +64,6 @@ export default Vue.defineComponent({
 }
 
 .Holder-info {
-    margin-inline-start: 20px;
     flex-grow: 1;
 }
 
