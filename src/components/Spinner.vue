@@ -3,12 +3,11 @@ import * as Vue from "vue";
 
 export default Vue.defineComponent({
     setup() {
-        return() => (
+        return () => (
             <div class="Spinner" />
         );
     }
 });
-
 </script>
 
 <style>
@@ -59,5 +58,4 @@ export default Vue.defineComponent({
         transform: rotate(360deg);
     }
 }
-
 </style>
