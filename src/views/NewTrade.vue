@@ -1,20 +1,17 @@
 <script lang="tsx">
 import * as Vue from "vue";
-import Holder from "../components/Holder.vue";
+import User from "../components/User.vue";
+import state from "../store/state";
 
 export default Vue.defineComponent({
-    render() {
-        return (
+    setup() {
+        return () => (
             <div class="NewTrade">
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
-                <Holder />
+                {
+                    Array.from(state.network.users.values()).map((user) => (
+                        <User user={user} />
+                    ))
+                }
             </div>
         );
     }

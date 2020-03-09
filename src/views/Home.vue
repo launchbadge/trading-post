@@ -1,6 +1,6 @@
 <script lang="tsx">
 import * as Vue from "vue";
-import Holder from "../components/Holder.vue";
+import User from "../components/User.vue";
 import { useRouter } from "vue-router";
 
 export default Vue.defineComponent({
@@ -9,7 +9,8 @@ export default Vue.defineComponent({
 
         return () => (
             <div class="Home">
-                <Holder onTrade={() => {
+                {/* TODO: Get the current user object here */}
+                <User onTrade={() => {
                     router.push({name: "NewTrade"});
                 }} />
                 <div class="Home-heading">

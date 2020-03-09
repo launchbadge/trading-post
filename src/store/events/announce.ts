@@ -1,9 +1,11 @@
 import { AnnounceEvent } from "../../domain/event";
 import { User } from "../../domain/user";
+import { reactive } from "Vue";
 import state from "../state";
-import { Gold } from "../../domain/tokens";
+import { Emoji, Gold, AllEmoji } from "../../domain/tokens";
 import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";
 import * as hedera from "../../service/hedera";
+import BigNumber from "bignumber.js";
 
 const resolvePublishByKey: Map<string, () => void> = new Map();
 
@@ -23,12 +25,13 @@ export async function publish(publicKey: Ed25519PublicKey): Promise<void> {
     await promise;
 }
 
+
 export function handle(event: AnnounceEvent): void {
     const user: User = {
         publicKey: event.payload.publicKey,
         balance: {
-            emoji: take(state.network.availableEmoji, event.timestamp.valueOf(), 10),
-            gold: 10000 as Gold,
+            emoji: take<Emoji>(state.network.availableEmoji, event.timestamp.valueOf(), 10),
+            gold: new BigNumber(10000) as Gold,
         },
         name: "?"
     };
@@ -45,10 +48,10 @@ function take<T>(all: Set<T>, seed: number, count: number): Set<T> {
     const chosen = new Set<T>();
     const available = Array.from(all);
 
-    for (let i = 0; i <= count; i += 1) {
+    for (let i = 0; i < count; i += 1) {
         const choice = (seed + i) % (available.length - i);
 
-        chosen.add(all[ choice ]);
+        chosen.add(available[ choice ]);
         all.delete(choice);
     }
 

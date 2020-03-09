@@ -2,8 +2,11 @@
 import * as Vue from "vue";
 import { mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
 import Icon from "./Icon.vue";
+import { User } from "../domain/user";
+import { AllEmoji } from "../domain/tokens";
 
 interface Props {
+    user: User;
     onTrade: () => void;
 }
 
@@ -14,18 +17,24 @@ export default Vue.defineComponent({
                 <div class="Holder-avatar" />
                 <div class="Holder-info">
                     <div class="Holder-name">
-                        Smith
+                        { props.user.name }
+                    </div>
+                    <div class="Holder-publicKey">
+                        { props.user.publicKey.slice("302a300506032b6570032100".length) }
                     </div>
                 </div>
                 <div class="Holder-balance">
                     <span class="Holder-balanceAmount">
-                        {/* TODO */}
-                        ...
+                        {
+                            Array.from(props.user.balance.emoji).map((i) => (
+                                <span class="Holder-emoji">{ AllEmoji[i] }</span>
+                            ))
+                        }
                     </span>
                     <Icon class="Holder-balanceIcon" d={ mdiEmoticonOutline } />
                 </div>
                 <div class="Holder-balance">
-                    <span class="Holder-balanceAmount">12,412.231</span>
+                    <span class="Holder-balanceAmount">{ props.user.balance.gold.toFormat() }</span>
                     <Icon class="Holder-balanceIcon" d={ mdiCoinOutline } />
                 </div>
                 <button class="Holder-newTrade" onClick={props.onTrade} >
@@ -47,6 +56,19 @@ export default Vue.defineComponent({
     align-items: center;
 }
 
+.Holder-emoji {
+    margin-inline-start: 12px;
+}
+
+.Holder-publicKey {
+    opacity: 0.5;
+    font-size: 14px;
+    margin-block-start: 6px;
+    font-family: "JetBrains Mono", monospace;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .Holder-avatar {
     width: 36px;

@@ -25,7 +25,7 @@ gulp.task("serve", () => {
         historyApiFallback: true,
         noInfo: true,
         disableHostCheck: true,
-        hot: false
+        hot: true
     }).listen(8080, "0.0.0.0", () => {
         log(`App running at: \u001B[34mhttp://localhost:8080\u001B[0m`);
     });

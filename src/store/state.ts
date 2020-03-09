@@ -14,8 +14,8 @@ export default Vue.reactive<State>({
     topicId: "0.0.193429",
     currentUserPublicKey: Ed25519PublicKey,
     network: {
+        availableEmoji: new Set(AllEmoji.keys()),
         users: new Map<string, User>(),
-        availableEmoji: new Set([ ...AllEmoji.keys() ]),
         trades: [],
     },
 });
