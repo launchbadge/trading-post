@@ -39,7 +39,7 @@ export function doesCurrentUserExist(): boolean {
         : false;
 }
 // Create a new user object for the current visitor
-export async function createNewUserIfNeeded() {
+export async function createNewUserIfNeeded(name: string) {
     if (doesCurrentUserExistLocally()) {
         // If we locally exist, let's assume that we also exist on the network
         return;
