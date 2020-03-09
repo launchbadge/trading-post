@@ -2,13 +2,16 @@
 import * as Vue from "vue";
 import Icon from "./Icon.vue";
 import { mdiStoreOutline, mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
+import Avatar from "./Avatar.vue";
+import state from "../store/state";
+import { getCurrentUser } from "../store/user";
 
 export default Vue.defineComponent({
     render() {
         return (
             <header class="Header">
                 <span class="Header-logo">Trading Post</span>
-                <div class="Header-userAvatar"></div>
+                <Avatar publicKey={ getCurrentUser()!.publicKey.toString() ?? "" } />
             </header>
         );
     }
@@ -28,12 +31,5 @@ export default Vue.defineComponent({
     color: var(--colorWhite);
     flex-grow: 1;
     font-size: 24px;
-}
-
-.Header-userAvatar {
-    width: 36px;
-    height: 36px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
 }
 </style>

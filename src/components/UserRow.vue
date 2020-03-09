@@ -5,6 +5,7 @@ import Icon from "./Icon.vue";
 import { User } from "../domain/user";
 import EmojiList from "./EmojiList.vue";
 import { AllEmoji } from "../domain/tokens";
+import Avatar from "./Avatar.vue";
 
 interface Props {
     user: User;
@@ -15,7 +16,7 @@ export default Vue.defineComponent({
     setup(props: Props) {
         return () => (
             <div class="Holder">
-                <div class="Holder-avatar" />
+                <Avatar publicKey={ props.user.publicKey } />
                 <div class="Holder-info">
                     <div class="Holder-name">
                         { props.user.name }
@@ -65,13 +66,6 @@ export default Vue.defineComponent({
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.Holder-avatar {
-    width: 36px;
-    height: 36px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
 }
 
 .Holder-info {

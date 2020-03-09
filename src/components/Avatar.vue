@@ -1,14 +1,30 @@
 <script lang="tsx">
 import * as Vue from "vue";
 
+const jdenticon = require("jdenticon");
+
 interface Props {
-    d: string;
+    publicKey: string;
 }
 
 export default Vue.defineComponent({
     setup(props: Props) {
+        const contents = Vue.computed(() => {
+            return jdenticon.toSvg(props.publicKey, 36, { replaceMode: "never" });
+        });
+
+        const container = Vue.ref<HTMLElement | null>(null);
+
+        Vue.onMounted(() => {
+            container.value!.innerHTML = contents.value;
+        });
+
+        Vue.onUpdated(() => {
+            container.value!.innerHTML = contents.value;
+        });
+
         return () => (
-            <div class="Avatar" />
+            <div ref={container} class="Avatar" />
         );
     }
 });
@@ -18,7 +34,8 @@ export default Vue.defineComponent({
 .Avatar {
     width: 36px;
     height: 36px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
+    background-color: var(--colorBlack);
 }
 </style>

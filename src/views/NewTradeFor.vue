@@ -78,22 +78,6 @@ export default Vue.defineComponent({
                     </div>
                     <div class="NewTradeFor-main">
                         <TradeWindow
-                            user={ user }
-                            gold={ requestee.gold as Gold }
-                            emoji={ requestee.emoji }
-                            onChangeGold={(gold) => {
-                                if (!submitting.value) requestee.gold = gold;
-                            }}
-                            onAddEmoji={(emoji) => {
-                                if (!submitting.value) requestee.emoji.add(emoji);
-                            }}
-                            onRemoveEmoji={(emoji) => {
-                                if (!submitting.value) requestee.emoji.delete(emoji);
-                            }}
-                            readonly={false}
-                        />
-                        <Icon class="NewTradeFor-swapIcon" d={ mdiSwapHorizontalVariant } />
-                        <TradeWindow
                             user={ getCurrentUser()! }
                             gold={ requestor.gold as Gold }
                             emoji={ requestor.emoji }
@@ -105,6 +89,22 @@ export default Vue.defineComponent({
                             }}
                             onRemoveEmoji={(emoji) => {
                                 if (!submitting.value) requestor.emoji.delete(emoji);
+                            }}
+                            readonly={false}
+                        />
+                        <Icon class="NewTradeFor-swapIcon" d={ mdiSwapHorizontalVariant } />
+                        <TradeWindow
+                            user={ user }
+                            gold={ requestee.gold as Gold }
+                            emoji={ requestee.emoji }
+                            onChangeGold={(gold) => {
+                                if (!submitting.value) requestee.gold = gold;
+                            }}
+                            onAddEmoji={(emoji) => {
+                                if (!submitting.value) requestee.emoji.add(emoji);
+                            }}
+                            onRemoveEmoji={(emoji) => {
+                                if (!submitting.value) requestee.emoji.delete(emoji);
                             }}
                             readonly={false}
                         />

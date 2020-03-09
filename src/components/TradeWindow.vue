@@ -48,7 +48,7 @@ export default Vue.defineComponent({
             return (
                 <div class="TradeWindow">
                     <div class="TradeWindow-user">
-                        <Avatar d=""/>
+                        <Avatar publicKey={ props.user.publicKey.toString() } />
                         <div class="TradeWindow-userMeta">
                             <div class="TradeWindow-userName">{ props.user.name }</div>
                             <div class="TradeWindow-userKey">{ props.user.publicKey.slice("302a300506032b6570032100".length) }</div>
