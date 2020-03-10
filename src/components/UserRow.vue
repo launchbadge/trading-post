@@ -1,12 +1,13 @@
 <script lang="tsx">
 import * as Vue from "vue";
-import { mdiCoinOutline, mdiEmoticonOutline } from "@mdi/js";
+import { mdiEmoticonOutline } from "@mdi/js";
 import Icon from "./Icon.vue";
 import { User } from "../domain/user";
 import EmojiList from "./EmojiList.vue";
 import { AllEmoji } from "../domain/tokens";
 import Avatar from "./Avatar.vue";
 import UserVue from "./User.vue";
+import GoldAmount from "./GoldAmount.vue";
 
 interface Props {
     user: User;
@@ -26,10 +27,7 @@ export default Vue.defineComponent({
                     </span>
                     <Icon class="Holder-balanceIcon" d={ mdiEmoticonOutline } />
                 </div>
-                <div class="Holder-balance">
-                    <span class="Holder-balanceAmount">{ props.user.balance.gold.toFormat() }</span>
-                    <Icon class="Holder-balanceIcon" d={ mdiCoinOutline } />
-                </div>
+                <GoldAmount amount={ props.user.balance.gold.toFormat() } />
                 <button class="Holder-newTrade" onClick={ props.onPressTrade } >
                     Trade
                 </button>
@@ -73,6 +71,7 @@ export default Vue.defineComponent({
 }
 
 .Holder-newTrade {
+    margin-inline-start: 20px;
     padding-block: 8px;
     user-select: none;
     cursor: pointer;

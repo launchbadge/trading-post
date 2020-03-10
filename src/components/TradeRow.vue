@@ -10,6 +10,7 @@ import EmojiList from "./EmojiList.vue";
 import { Trade, TRADE_DURATION } from "../domain/trade";
 import StatusIcon, { AcceptStatus } from "./StatusIcon.vue";
 import { computed } from "vue";
+import GoldAmount from "./GoldAmount.vue";
 
 interface Props {
     trade: Trade;
@@ -25,15 +26,9 @@ export default Vue.defineComponent({
                 <Avatar publicKey={ props.trade.requestor.publicKey } />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
                 <div class="TradeRow-goldSwap">
-                    <div class="TradeRow-gold">
-                        <span class="TradeRow-goldAmount">{ props.trade.requestorGold.toFixed() }</span>
-                        <Icon class="TradeRow-goldIcon" d={ mdiCoinOutline } />
-                    </div>
+                    <GoldAmount amount={ props.trade.requestorGold.toFormat() } />
                     <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
-                    <div class="TradeRow-goldMirror">
-                        <Icon class="TradeRow-goldIconMirror" d={ mdiCoinOutline } />
-                        <span>{ props.trade.requesteeGold.toFixed() }</span>
-                    </div>
+                    <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
                 </div>
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
@@ -72,21 +67,6 @@ export default Vue.defineComponent({
     margin-inline: 20px;
     opacity: 0.7;
     justify-self: center;
-}
-
-.TradeRow-gold {
-    display: flex;
-    align-items: center;
-    justify-self: right;
-}
-
-.TradeRow-goldIcon {
-    fill: var(--colorSpandexGreen);
-    height: 24px;
-}
-
-.TradeRow-goldAmount {
-    margin-inline-end: 8px;
 }
 
 .TradeRow-goldMirror {
