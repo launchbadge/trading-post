@@ -110,6 +110,7 @@ export default Vue.defineComponent({
     margin: 6px;
     user-select: none;
     box-sizing: border-box;
+    font-size: 25px;
 
     &:hover {
         background: rgba(255, 255, 255, 0.1);
