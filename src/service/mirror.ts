@@ -2,7 +2,8 @@ import { ConsensusTopicId, MirrorClient, MirrorConsensusTopicQuery } from "@hash
 import { Event } from "../domain/event";
 import { handle } from "../store/events/handle";
 import { ConsensusTopicIdLike } from "@hashgraph/sdk/lib/consensus/ConsensusTopicId";
-
+import {getRunningHash} from "./hedera"
+import state from "../store/state"
 // Envoy Proxy
 const MIRROR_NODE_ADDRESS = "http://localhost:11206";
 
@@ -26,13 +27,16 @@ export function startListening(topicId: ConsensusTopicIdLike) {
 
             try {
                 data = JSON.parse(textDecoder.decode(response.message));
+                state.network.currentSequenceNumber = response.sequenceNumber;
+                if (state.network.currentSequenceNumber > state.network.sequenceLength) {
+                    getRunningHash(state.topicId!);
+                }
             } catch (err) {
                 // Event is unprocessable
                 // No worries
                 console.warn(err);
                 return;
             }
-
             const event: Event = {
                 id: response.sequenceNumber,
                 timestamp: response.consensusTimestamp.asDate(),
