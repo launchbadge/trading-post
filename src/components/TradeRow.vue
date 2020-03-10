@@ -52,7 +52,7 @@ export default Vue.defineComponent({
     padding: 16px;
     border-radius: 2px;
     display: inline-grid;
-    grid-template-columns: 1fr 5fr 230px 5fr 1fr 2fr;
+    grid-template-columns: 1fr 5fr 230px 5fr 1fr 1fr 2fr;
     align-items: center;
 }
 
