@@ -17,6 +17,8 @@ export default Vue.defineComponent({
         const router = useRouter();
         const name = Vue.ref("");
         const busy = Vue.ref(false);
+        const isEmpty = Vue.ref(false);
+
         const clearState = () => {
             name.value = "";
         }
@@ -28,14 +30,19 @@ export default Vue.defineComponent({
 
         const handleSubmit = (event: Event) => {
             event.preventDefault();
-            void store.createNewUserIfNeeded(name.value);
-            busy.value = true;
+            if (name.value.length > 0) {
+                void store.createNewUserIfNeeded(name.value);
+                isEmpty.value = false;
+                busy.value = true;
+            } else {
+                isEmpty.value = true;
+            }
         }
 
         return () => (
             <div class="Signup-container">
                 <div class="Signup-title">
-                    Sign up to get started
+                    {isEmpty.value ?  "Please Enter a valid name" : "Sign up to get started"}
                 </div>
                 <form class="Signup-form">
                     <label for="name">Name</label>
@@ -80,11 +87,6 @@ export default Vue.defineComponent({
 .Signup-button {
     height: 40px;
     width: 100%;
-
-    & :first-child {
-        width: 100%;
-        height: 100%;
-    }
 }
 
 label {
