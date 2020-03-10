@@ -28,9 +28,13 @@ export default Vue.defineComponent({
                 <div class="TradeRow-goldSwap">
                     <GoldAmount amount={ props.trade.requestorGold.toFormat() } />
                     <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
-                    <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
+                    <div class="TradeRow-rightGold">
+                        <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
+                    </div>
                 </div>
-                <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
+                <div class="TradeRow-rightEmoji">
+                    <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
+                </div>
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
                 <StatusIcon class="TradeRow-accepted" accepted={ acceptStatus.value } />
                 <Button disabled={false} busy={false} onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
@@ -69,19 +73,17 @@ export default Vue.defineComponent({
     justify-self: center;
 }
 
-.TradeRow-goldMirror {
-    display: flex;
-    align-items: center;
-}
-
-.TradeRow-goldIconMirror {
-    fill: var(--colorSpandexGreen);
-    height: 24px;
-    margin-inline-end: 8px;
+.TradeRow-rightGold {
+    align-self: center;
+    justify-self: flex-start;
 }
 
 .TradeRow-accepted {
     justify-self: center;
+}
+
+.TradeRow-rightEmoji {
+    justify-self: flex-end;
 }
 
 </style>
