@@ -26,6 +26,7 @@ export default Vue.defineComponent({
 .User {
     display: flex;
     align-items: center;
+    height: 45px;
 }
 
 .User-meta {
