@@ -8,6 +8,12 @@ export enum EventType {
     TradeAccept = "Trade Accept"
 }
 
+export interface Message {
+    type: EventType;
+    payload: object;
+    signature?: string;
+}
+
 export interface AnnounceEvent {
     id: number;
     timestamp: Date;
@@ -16,6 +22,7 @@ export interface AnnounceEvent {
         publicKey: string;
         name: string;
     };
+    signature: string;
 }
 
 export interface TradeRequestEvent {
@@ -30,6 +37,7 @@ export interface TradeRequestEvent {
         requesteeGold: Gold;
         requesteeEmoji: Set<Emoji>;
     };
+    signature: string;
 }
 
 export interface TradeAcceptEvent {
@@ -39,4 +47,5 @@ export interface TradeAcceptEvent {
     payload: {
         tradeId: number;
     };
+    signature: string;
 }

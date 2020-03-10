@@ -4,6 +4,11 @@ import * as tradeRequest from "./trade-request";
 import * as tradeAccept from "./trade-accept";
 
 export function handle(event: Event): void {
+    if (event.signature == null) {
+        console.log("Ignoring: ", event);
+        return;
+    }
+    
     console.log("Handle: ", event);
 
     switch (event.type) {

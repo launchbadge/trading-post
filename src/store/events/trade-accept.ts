@@ -1,8 +1,10 @@
-import { TradeAcceptEvent, EventType } from "../../domain/event";
+import { TradeAcceptEvent, EventType, Message } from "../../domain/event";
 import * as hedera from "../../service/hedera";
-import { ConsensusTopicId } from "@hashgraph/sdk";
+import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";
 import state from "../state";
 import { Gold } from "../../domain/tokens";
+import { validateSignature } from "../../service/crypto";
+import { Trade } from "../../domain/trade";
 
 export async function publish(tradeId: number): Promise<void> {
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
@@ -14,10 +16,14 @@ export async function publish(tradeId: number): Promise<void> {
 }
 
 export function handle(event: TradeAcceptEvent): void {
-    // TODO: Verify that only the requestee can actually accept a transaction
-
     const trade = state.network.trades.get(event.payload.tradeId)!;
+    const requesteeKey = Ed25519PublicKey.fromString(trade.requestee.publicKey).toBytes();
+    if (validateSignature(event, requesteeKey)) {
+        _handle(trade);
+    }
+}
 
+export function _handle(trade: Trade): void {
     // Exchange Gold
     trade.requestor.balance.gold = trade.requestor.balance.gold
         .minus(trade.requestorGold)
@@ -39,7 +45,7 @@ export function handle(event: TradeAcceptEvent): void {
     }
 
     // Remove this trade from "Open" if there
-    const openTradeIndex = state.network.openTrades.indexOf(event.payload.tradeId);
+    const openTradeIndex = state.network.openTrades.indexOf(trade.id);
     if (openTradeIndex >= 0) {
         state.network.openTrades.splice(openTradeIndex, 1);
     }
