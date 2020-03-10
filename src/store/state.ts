@@ -17,6 +17,8 @@ export default Vue.reactive<State>({
     currentUserPublicKey: null,
     currentUserPrivateKey: null,
     network: {
+        sequenceLength: 0,
+        currentSequenceNumber: 0,
         availableEmoji: new Set(AllEmoji.keys()),
         users: new Map<string, User>(),
         trades: new Map<number, Trade>(),

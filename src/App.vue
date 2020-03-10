@@ -7,14 +7,19 @@ import { createNewUserIfNeeded, doesCurrentUserExist } from "./store/user";
 import { startListening } from "./service/mirror";
 import state from "./store/state";
 import { computed } from "vue";
+import { getRunningHash } from "./service/hedera";
+import NProgress from "./components/NProgress.vue";
 
 export default Vue.defineComponent({
     name: "App",
     setup() {
         Vue.onBeforeMount(() => {
             void startListening(state.topicId!);
+            void getRunningHash(state.topicId!);
         });
-        
+        Vue.onBeforeUpdate(() => {
+            void getRunningHash(state.topicId!);
+        })
         const main = Vue.ref(<Signup />)    
         Vue.watch(
             () => doesCurrentUserExist(), 
@@ -34,6 +39,7 @@ export default Vue.defineComponent({
         return() => (
             <div class="App">
                 <Header/>
+                <NProgress />
                 { main.value }
             </div>
         );
