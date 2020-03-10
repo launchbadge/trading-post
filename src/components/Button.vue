@@ -34,6 +34,9 @@ export default Vue.defineComponent({
     border-radius: 2px;
     font-size: inherit;
     border: none;
+    position: relative;
+    height: inherit;
+    width: inherit;
 
     &:disabled {
         cursor: default;

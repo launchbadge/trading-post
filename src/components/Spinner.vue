@@ -4,13 +4,20 @@ import * as Vue from "vue";
 export default Vue.defineComponent({
     setup() {
         return () => (
-            <div class="Spinner" />
+            <div class="Spinner-wrapper">
+                <div class="Spinner" />
+            </div>
         );
     }
 });
 </script>
 
 <style>
+
+.Spinner-wrapper {
+    margin-inline: auto;
+}
+
 .Spinner,
 .Spinner::after {
     border-radius: 50%;
