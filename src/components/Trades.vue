@@ -33,7 +33,7 @@ export default Vue.defineComponent({
             return (
                 <div class="Trades">
                     {
-                        trades.filter((trade) => trade.isAccepted).map((trade) => (
+                        trades.map((trade) => (
                             <TradeRow
                                 key={ trade.id }
                                 trade={ trade }
@@ -41,7 +41,7 @@ export default Vue.defineComponent({
                                     router.push({ name: "Trade", params: { id: trade.id.toString() } });
                                 }}
                             />
-                        ))
+                        )).reverse()
                     }
                 </div>
             );
