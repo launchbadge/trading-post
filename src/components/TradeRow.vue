@@ -37,7 +37,7 @@ export default Vue.defineComponent({
                 </div>
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
-                <StatusIcon accepted={ acceptStatus.value } />
+                <StatusIcon class="TradeRow-accepted" accepted={ acceptStatus.value } />
                 <Button disabled={false} busy={false} onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
             </div>
         );
@@ -98,6 +98,10 @@ export default Vue.defineComponent({
     fill: var(--colorSpandexGreen);
     height: 24px;
     margin-inline-end: 8px;
+}
+
+.TradeRow-accepted {
+    justify-self: center;
 }
 
 </style>
