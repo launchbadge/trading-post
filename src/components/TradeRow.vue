@@ -10,6 +10,7 @@ import EmojiList from "./EmojiList.vue";
 import { Trade, TRADE_DURATION } from "../domain/trade";
 import StatusIcon, { AcceptStatus } from "./StatusIcon.vue";
 import { computed } from "vue";
+import GoldAmount from "./GoldAmount.vue";
 
 interface Props {
     trade: Trade;
@@ -24,10 +25,18 @@ export default Vue.defineComponent({
             <div class="TradeRow">
                 <Avatar publicKey={ props.trade.requestor.publicKey } />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
-                <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
-                <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
+                <div class="TradeRow-goldSwap">
+                    <GoldAmount amount={ props.trade.requestorGold.toFormat() } />
+                    <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
+                    <div class="TradeRow-rightGold">
+                        <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
+                    </div>
+                </div>
+                <div class="TradeRow-rightEmoji">
+                    <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
+                </div>
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
-                <StatusIcon accepted={ acceptStatus.value } />
+                <StatusIcon class="TradeRow-accepted" accepted={ acceptStatus.value } />
                 <Button disabled={false} busy={false} onClick={props.onPressView} class="TradeRow-viewButton">View</Button>
             </div>
         );
@@ -41,7 +50,8 @@ export default Vue.defineComponent({
     color: var(--colorWhite);
     padding: 16px;
     border-radius: 2px;
-    display: flex;
+    display: inline-grid;
+    grid-template-columns: 1fr 5fr 230px 5fr 1fr 1fr 2fr;
     align-items: center;
 }
 
@@ -49,11 +59,31 @@ export default Vue.defineComponent({
     margin-inline: 16px;
 }
 
+.TradeRow-goldSwap {
+    display: inline-grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    justify-content: center;
+}
+
 .TradeRow-swapIcon {
     height: 32px;
     fill: var(--colorWhite);
     margin-inline: 20px;
-    flex-grow: 1;
     opacity: 0.7;
+    justify-self: center;
 }
+
+.TradeRow-rightGold {
+    align-self: center;
+    justify-self: flex-start;
+}
+
+.TradeRow-accepted {
+    justify-self: center;
+}
+
+.TradeRow-rightEmoji {
+    justify-self: flex-end;
+}
+
 </style>
