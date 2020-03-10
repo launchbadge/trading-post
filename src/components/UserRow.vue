@@ -53,16 +53,6 @@ export default Vue.defineComponent({
     margin-inline-start: 12px;
 }
 
-.Holder-publicKey {
-    opacity: 0.5;
-    font-size: 14px;
-    margin-block-start: 6px;
-    font-family: "JetBrains Mono", monospace;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .Holder-info {
     flex-grow: 1;
 }
