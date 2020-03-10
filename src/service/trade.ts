@@ -44,14 +44,17 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
         isValid: true
     }
 
+    validateTrade(trade);
+
     return trade as Trade;
 }
 
 // WARNING: Mutates trade.isValid
 export function validateTrade(trade: Trade): boolean {
     // Has the trade timed out?
-    const expiration = new Date(trade.validStartAt).setSeconds(trade.validStartAt.getSeconds() + TRADE_DURATION);
-    if (new Date().getTime() > expiration) {
+    const expiration = new Date(trade.validStartAt);
+    expiration.setSeconds(trade.validStartAt.getSeconds() + TRADE_DURATION);
+    if (new Date().getTime() > expiration.getTime()) {
         console.warn(`Invalid trade ${JSON.stringify(trade)}: timed out`);
         trade.isValid = false;
     }
