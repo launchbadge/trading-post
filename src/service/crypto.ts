@@ -3,7 +3,7 @@ import util from "tweetnacl-util"
 import { getCurrentUserPrivateKey } from "../store/user";
 import { Event, Message } from "../domain/event";
 
-function currentKeyPair(): any {
+function currentKeyPair(): nacl.SignKeyPair {
     const userPrivateKey = getCurrentUserPrivateKey();
     return sign.keyPair.fromSeed(userPrivateKey!.toBytes());
 }
@@ -38,7 +38,5 @@ export function validateSignature(event: Event, publicKey?: Uint8Array): boolean
     const message: Message = { type: event.type, payload: event.payload };
     const hashedMessage = hashMessage(message);
     const signatureBytes = util.decodeBase64(event.signature);
-    const decoded = sign.detached.verify(hashedMessage, signatureBytes, publicKey);
-    if (decoded != null) return true;
-    return false;
+    return sign.detached.verify(hashedMessage, signatureBytes, publicKey);
 }
