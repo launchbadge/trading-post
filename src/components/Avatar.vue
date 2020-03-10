@@ -37,5 +37,6 @@ export default Vue.defineComponent({
     border-radius: 50%;
     box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2);
     background-color: var(--colorBlack);
+    justify-self: center;
 }
 </style>
