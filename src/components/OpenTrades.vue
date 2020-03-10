@@ -8,6 +8,7 @@ import { AllEmoji } from "../domain/tokens";
 import state from "../store/state";
 import TradeRow from "./TradeRow.vue";
 import { useRouter } from "vue-router";
+import { validateTrade } from "../service/trade";
 
 interface Props {
     user: User;
@@ -16,6 +17,26 @@ interface Props {
 export default Vue.defineComponent({
     setup(props: Props) {
         const router = useRouter();
+
+        const isCheckingTime = Vue.ref(true);
+        const timeoutId = Vue.ref<number | null>(null);
+
+        function refreshValidity() {
+            if (!isCheckingTime.value) {
+                return;
+            } else {
+                state.network.openTrades.forEach((trade) => validateTrade(state.network.trades.get(trade)!));
+                timeoutId.value = window.setTimeout(refreshValidity, 1000);
+            }   
+        }
+
+        Vue.onMounted(() => {
+            refreshValidity();
+        });
+
+        Vue.onBeforeUnmount(() => {
+            isCheckingTime.value = false;
+        });
 
         return () => {
             const openTrades = state.network.openTrades;
