@@ -19,7 +19,7 @@ interface Props {
 
 export default Vue.defineComponent({
     setup(props: Props) {
-        const acceptStatus = computed(() => props.trade.isAccepted ? AcceptStatus.accepted : Date.now() > (props.trade.validStartAt.valueOf() + TRADE_DURATION) ? AcceptStatus.rejected : AcceptStatus.pending );
+        const acceptStatus = computed(() => props.trade.isAccepted ? AcceptStatus.accepted : (props.trade.isValid ? AcceptStatus.pending : AcceptStatus.rejected));
 
         return () => (
             <div class="TradeRow">

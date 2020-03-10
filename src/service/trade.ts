@@ -1,4 +1,4 @@
-import { Trade } from "../domain/trade";
+import { Trade, TRADE_DURATION } from "../domain/trade";
 import { TradeRequestEvent } from "../domain/event";
 import { User } from "../domain/user";
 import { Gold, hasSubset } from "../domain/tokens";
@@ -40,16 +40,28 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
         requesteeGold,
         requestorEmoji,
         requestorGold,
-        isAccepted: false
+        isAccepted: false,
+        isValid: true
     }
+
+    validateTrade(trade);
 
     return trade as Trade;
 }
 
+// WARNING: Mutates trade.isValid
 export function validateTrade(trade: Trade): boolean {
+    // Has the trade timed out?
+    const expiration = new Date(trade.validStartAt);
+    expiration.setSeconds(trade.validStartAt.getSeconds() + TRADE_DURATION);
+    if (new Date().getTime() > expiration.getTime()) {
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: timed out`);
+        trade.isValid = false;
+    }
+    
     if (trade.requestorGold.isNegative() || trade.requesteeGold.isNegative()) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; a gold amount is negative`);
-        return false;
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: a gold amount is negative`);
+        trade.isValid = false;
     }
 
     // require a trade to at least do *something*
@@ -59,31 +71,31 @@ export function validateTrade(trade: Trade): boolean {
         || !trade.requesteeGold.isZero();
 
     if (!hasValue) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; trade has no value`);
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: trade has no value`);
         // Not a valid TradeRequest
-        return false;
+        trade.isValid = false;
     }
 
     // ensure both parties have sufficient gold/emoji balances
     if (!hasSubset(trade.requestee.balance.emoji, trade.requesteeEmoji)) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; requestee does not have requested emoji`);
-        return false;
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: requestee does not have requested emoji`);
+        trade.isValid = false;
     }
 
     if (!hasSubset(trade.requestor.balance.emoji, trade.requestorEmoji)) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; requestor does not have requested emoji`);
-        return false;
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: requestor does not have requested emoji`);
+        trade.isValid = false;
     }
 
     if (trade.requestee.balance.gold.isLessThan(trade.requesteeGold)) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; requestee does not have sufficient balance`);
-        return false;
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: requestee does not have sufficient balance`);
+        trade.isValid = false;
     }
 
     if (trade.requestor.balance.gold.isLessThan(trade.requestorGold)) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; requestor does not have sufficient balance`);
-        return false;
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: requestor does not have sufficient balance`);
+        trade.isValid = false;
     }
 
-    return true;
+    return trade.isValid;
 }
