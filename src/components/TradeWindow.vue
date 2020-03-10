@@ -94,6 +94,7 @@ export default Vue.defineComponent({
 .TradeWindow-user {
     background-color: var(--colorBlackGrey);
     padding: 16px;
+    border-radius: 4px;
     display: flex;
     justify-content: space-between;
 }
@@ -103,6 +104,7 @@ export default Vue.defineComponent({
     display: flex;
     flex-wrap: wrap;
     padding: 4px;
+    border-radius: 4px;
 }
 
 .TradeWindow-emoji {
@@ -125,19 +127,25 @@ export default Vue.defineComponent({
 .TradeWindow-gold {
     background-color: var(--colorBlackGrey);
     display: flex;
+    border-radius: 4px;
 }
 
 .TradeWindow-goldInput {
     outline: none;
-    border: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: transparent;
     flex-grow: 1;
-    margin-block: 8px;
-    margin-inline: 4px;
-    padding: 6px 8px;
+    padding: 10px 12px;
     font-size: inherit;
     font-family: inherit;
     background: transparent;
     color: var(--colorWhite);
+    margin-bottom: 0;
+
+    &:focus {
+        border-color: var(--colorSpandexGreen);
+    }
 }
 
 .TradeWindow-goldIconContainer {
@@ -146,6 +154,8 @@ export default Vue.defineComponent({
     padding-inline: 8px;
     justify-content: center;
     align-items: center;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .TradeWindow-goldIcon {
