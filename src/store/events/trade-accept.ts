@@ -5,6 +5,8 @@ import state from "../state";
 import { Gold } from "../../domain/tokens";
 import { validateSignature } from "../../service/crypto";
 import { Trade } from "../../domain/trade";
+import { validateTrade } from "../../service/trade";
+import { getTrade } from "../trade";
 
 export async function publish(tradeId: number): Promise<void> {
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
@@ -49,6 +51,15 @@ export function _handle(trade: Trade): void {
     if (openTradeIndex >= 0) {
         state.network.openTrades.splice(openTradeIndex, 1);
     }
+
+    // Remove invalidated trades
+    const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(getTrade(id)!))
+    invalidTradeIds.map((id) => {
+        const index = state.network.openTrades.indexOf(id);
+        if (index >= 0) {
+            state.network.openTrades.splice(index, 1);
+        }
+    });
 
     // Mark the trade as accepted
     trade.isAccepted = true;
