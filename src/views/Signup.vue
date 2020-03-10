@@ -18,6 +18,7 @@ export default Vue.defineComponent({
         const name = Vue.ref("");
         const busy = Vue.ref(false);
         const isEmpty = Vue.ref(false);
+        const isLoaded = Vue.computed(() => state.network.sequenceLength === state.network.currentSequenceNumber);
 
         const clearState = () => {
             name.value = "";
@@ -42,20 +43,20 @@ export default Vue.defineComponent({
         return () => (
             <div class="Signup-container">
                 <div class="Signup-title">
-                    {isEmpty.value ?  "Please Enter a valid name" : "Sign up to get started"}
+                    { isLoaded.value ? (isEmpty.value ?  "Please Enter a valid name" : "Sign up to get started") : "Checking for existing account..."}
                 </div>
-                <form class="Signup-form">
+                { isLoaded.value? <form class="Signup-form">
                     <label for="name">Name</label>
                     <input name="name" onChange={handleChange} type="string" value={name.value}/>
                     <div class="Signup-button">
                         <Button
                             onClick={handleSubmit}
-                            busy={busy.value}
+                            busy={busy.value || !isLoaded.value}
                         >
                             Signup
                         </Button>
                     </div>
-                </form>
+                </form>: null}
             </div>
         );
     }
