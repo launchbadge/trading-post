@@ -1,4 +1,4 @@
-import { Trade, TradeLike } from "../domain/trade";
+import { Trade } from "../domain/trade";
 import { TradeRequestEvent } from "../domain/event";
 import { User } from "../domain/user";
 import { Gold, hasSubset } from "../domain/tokens";
@@ -25,7 +25,13 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
         return;
     }
 
-    const trade: TradeLike = {
+    if (requestee == null || requestor == null) {
+        console.warn(`request ${JSON.stringify(event)} invalid: one or more users does not exist`);
+        return;
+    }
+
+
+    const trade: Trade = {
         id: event.id,
         validStartAt: event.timestamp,
         requestee,
@@ -40,18 +46,7 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
     return trade as Trade;
 }
 
-export function validateTrade(trade: TradeLike): boolean {
-
-    if (trade.requestee === null) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; unknown requestee`);
-        return false;
-    }
-
-    if (trade.requestor === null) {
-        console.warn(`rejecting request ${JSON.stringify(event)}; unknown requestor`);
-        return false;
-    }
-
+export function validateTrade(trade: Trade): boolean {
     if (trade.requestorGold.isNegative() || trade.requesteeGold.isNegative()) {
         console.warn(`rejecting request ${JSON.stringify(event)}; a gold amount is negative`);
         return false;

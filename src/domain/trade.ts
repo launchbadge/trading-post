@@ -23,15 +23,3 @@ export interface Trade {
     // DURATION number of seconds after this, it is invalid
     validStartAt: Date;
 }
-
-export interface TradeLike {
-    id: number;
-    validStartAt: Date;
-    requestee: User | null;
-    requestor: User | null;
-    requesteeEmoji: Set<Emoji>;
-    requesteeGold: Gold;
-    requestorEmoji: Set<Emoji>;
-    requestorGold: Gold;
-    isAccepted: boolean;
-}
