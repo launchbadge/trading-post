@@ -26,9 +26,9 @@ export default Vue.defineComponent({
                 <Avatar publicKey={ props.trade.requestor.publicKey } />
                 <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
                 <div class="TradeRow-goldSwap">
-                    {props.trade.requestorGold.eq(0) ? <GoldAmount amount={ props.trade.requestorGold.toFormat() } /> : null}
+                    {!props.trade.requestorGold.eq(0) ? <GoldAmount amount={ props.trade.requestorGold.toFormat() } /> : null}
                     <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
-                    {props.trade.requesteeGold.eq(0) ? <div class="TradeRow-rightGold">
+                    {!props.trade.requesteeGold.eq(0) ? <div class="TradeRow-rightGold">
                         <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
                     </div> : null}
                 </div>
