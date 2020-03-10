@@ -10,6 +10,7 @@ import { AllEmoji, Emoji, Gold } from "../domain/tokens";
 import { User } from "../domain/user";
 import BigNumber from "bignumber.js";
 import UserVue from "./User.vue";
+import GoldAmount from "./GoldAmount.vue";
 
 interface Props {
     user: User;
@@ -50,18 +51,7 @@ export default Vue.defineComponent({
                 <div class="TradeWindow">
                     <div class="TradeWindow-user">
                         <UserVue user={ props.user }/>
-                    </div>
-                    <div class="TradeWindow-main">
-                        {
-                            Array.from(props.user.balance.emoji!).map((i) => (
-                                <span
-                                    class={["TradeWindow-emoji", { "is-selected": props.emoji.has(i) }]}
-                                    onClick={() => handleToggleEmoji(i)}
-                                >
-                                    { AllEmoji[i] }
-                                </span>
-                            ))
-                        }
+                        <GoldAmount amount={ props.user.balance.gold.toFormat() } />
                     </div>
                     <div class="TradeWindow-gold">
                         <input
@@ -74,6 +64,18 @@ export default Vue.defineComponent({
                         <div class="TradeWindow-goldIconContainer">
                             <Icon class="TradeWindow-goldIcon" d={ mdiCoinOutline } />
                         </div>
+                    </div>
+                    <div class="TradeWindow-main">
+                        {
+                            Array.from(props.user.balance.emoji!).map((i) => (
+                                <span
+                                    class={["TradeWindow-emoji", { "is-selected": props.emoji.has(i) }]}
+                                    onClick={() => handleToggleEmoji(i)}
+                                >
+                                    { AllEmoji[i] }
+                                </span>
+                            ))
+                        }
                     </div>
                 </div>
             );
@@ -92,6 +94,8 @@ export default Vue.defineComponent({
 .TradeWindow-user {
     background-color: var(--colorBlackGrey);
     padding: 16px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .TradeWindow-main {

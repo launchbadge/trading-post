@@ -154,5 +154,6 @@ export default Vue.defineComponent({
     margin-top: 15px;
     opacity: 0.5;
     justify-self: center;
+    align-self: center;
 }
 </style>
