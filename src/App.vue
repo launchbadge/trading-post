@@ -17,9 +17,7 @@ export default Vue.defineComponent({
             void startListening(state.topicId!);
             void getRunningHash(state.topicId!);
         });
-        Vue.onBeforeUpdate(() => {
-            void getRunningHash(state.topicId!);
-        })
+
         const main = Vue.ref(<Signup />)    
         Vue.watch(
             () => doesCurrentUserExist(), 

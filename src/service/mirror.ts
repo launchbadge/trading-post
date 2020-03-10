@@ -28,6 +28,9 @@ export function startListening(topicId: ConsensusTopicIdLike) {
             try {
                 data = JSON.parse(textDecoder.decode(response.message));
                 state.network.currentSequenceNumber = response.sequenceNumber;
+                if (state.network.currentSequenceNumber > state.network.sequenceLength) {
+                    getRunningHash(state.topicId!);
+                }
             } catch (err) {
                 // Event is unprocessable
                 // No worries

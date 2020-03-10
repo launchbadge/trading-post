@@ -32,5 +32,6 @@ export default Vue.defineComponent({
 .NProgress-progress {
     height: 2px;
     background-color: var(--colorSpandexGreen);
+    transition: width 0.75s ease;
 }
 </style>
