@@ -18,7 +18,7 @@ export async function publish(tradeId: number): Promise<void> {
 }
 
 export function handle(event: TradeAcceptEvent): void {
-    const trade = state.network.trades.get(event.payload.tradeId)!;
+    const trade = getTrade(event.payload.tradeId)!;
     const requesteeKey = Ed25519PublicKey.fromString(trade.requestee.publicKey).toBytes();
     if (validateSignature(event, requesteeKey)) {
         _handle(trade);
@@ -46,13 +46,13 @@ export function _handle(trade: Trade): void {
         trade.requestee.balance.emoji.delete(emoji);
     }
 
-    // Remove this trade from "Open" if there
-    const openTradeIndex = state.network.openTrades.indexOf(trade.id);
-    if (openTradeIndex >= 0) {
-        state.network.openTrades.splice(openTradeIndex, 1);
-    }
+    
+    // Accepted, cannot be acted on
+    trade.isAccepted = true;
+    trade.isValid = false;
 
     // Remove invalidated trades
+    // Also marks trades with isValid: false
     const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(getTrade(id)!))
     invalidTradeIds.map((id) => {
         const index = state.network.openTrades.indexOf(id);
@@ -60,7 +60,4 @@ export function _handle(trade: Trade): void {
             state.network.openTrades.splice(index, 1);
         }
     });
-
-    // Mark the trade as accepted
-    trade.isAccepted = true;
 }

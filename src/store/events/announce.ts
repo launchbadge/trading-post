@@ -1,6 +1,5 @@
 import { AnnounceEvent, EventType } from "../../domain/event";
 import { User } from "../../domain/user";
-import { getUserName } from "../user";
 import state from "../state";
 import { Emoji, Gold } from "../../domain/tokens";
 import { ConsensusTopicId, Ed25519PublicKey } from "@hashgraph/sdk";

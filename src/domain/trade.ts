@@ -22,4 +22,5 @@ export interface Trade {
     // Time that this trade is valid to act on
     // DURATION number of seconds after this, it is invalid
     validStartAt: Date;
+    isValid: boolean;
 }
