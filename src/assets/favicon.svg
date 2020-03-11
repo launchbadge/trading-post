@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20"
+   height="20"
+   viewBox="0 0 5.2916669 5.2916665"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="trading-post-favicon.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="48.289741"
+     inkscape:cy="-22.113083"
+     inkscape:document-units="mm"
+     inkscape:current-layer="text12"
+     showgrid="false"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:window-width="1254"
+     inkscape:window-height="1381"
+     inkscape:window-x="2"
+     inkscape:window-y="57"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.67137929,-290.5724)">
+    <g
+       aria-label="TradingPost"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       id="text12">
+      <g
+         id="g100"
+         transform="translate(0.42336498,-0.83079667)">
+        <path
+           inkscape:connector-curvature="0"
+           id="path18"
+           style="line-height:1em;fill:#ffffff"
+           d="m 1.4714793,295.86407 v -3.27448 H 0.67137929 v -0.3556 H 2.6666905 v 0.3556 H 1.8665904 v 3.27448 z" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path32"
+           style="line-height:1em;fill:#f6931d;fill-opacity:1"
+           d="m 3.274107,295.86407 v -3.63008 h 0.869245 q 0.202494,0 0.395111,0.0691 0.192617,0.0691 0.325967,0.22225 0.138289,0.1531 0.192616,0.35066 0.05927,0.19261 0.05927,0.39511 0,0.19755 -0.05927,0.39511 -0.05433,0.19262 -0.192616,0.34572 -0.13335,0.15311 -0.325967,0.22719 -0.192617,0.0691 -0.395111,0.0691 H 3.669218 v 1.55575 z m 0.869245,-1.91135 q 0.128411,0 0.242005,-0.0494 0.118534,-0.0543 0.197556,-0.15805 0.07902,-0.10372 0.108656,-0.22719 0.02963,-0.12347 0.02963,-0.24694 0,-0.12841 -0.02963,-0.25189 -0.02963,-0.12347 -0.108656,-0.22225 -0.07902,-0.10371 -0.197556,-0.1531 -0.113594,-0.0543 -0.242005,-0.0543 H 3.669218 v 1.36313 z" />
+      </g>
+    </g>
+  </g>
+</svg>
