@@ -47,11 +47,27 @@ export default Vue.defineComponent({
         }
 
         return () => {
+            let emojiList;
+            if (props.readonly) {
+                emojiList = Array.from(props.emoji).map((i) => (
+                    <span class="TradeWindow-emoji">{ AllEmoji[i] }</span>
+                ));
+            } else {
+                emojiList = Array.from(props.user.balance.emoji!).map((i) => (
+                    <span
+                        class={["TradeWindow-emoji", { "is-selected": props.emoji.has(i) }]}
+                        onClick={() => handleToggleEmoji(i)}
+                    >
+                        { AllEmoji[i] }
+                    </span>
+                ));
+            }
+
             return (
                 <div class="TradeWindow">
                     <div class="TradeWindow-user">
                         <UserVue user={ props.user }/>
-                        <GoldAmount amount={ props.user.balance.gold.toFormat() } />
+                        { props.readonly ? null : <GoldAmount amount={ props.user.balance.gold.toFormat() } /> }
                     </div>
                     <div class="TradeWindow-gold">
                         <input
@@ -66,16 +82,7 @@ export default Vue.defineComponent({
                         </div>
                     </div>
                     <div class="TradeWindow-main">
-                        {
-                            Array.from(props.user.balance.emoji!).map((i) => (
-                                <span
-                                    class={["TradeWindow-emoji", { "is-selected": props.emoji.has(i) }]}
-                                    onClick={() => handleToggleEmoji(i)}
-                                >
-                                    { AllEmoji[i] }
-                                </span>
-                            ))
-                        }
+                        { emojiList }
                     </div>
                 </div>
             );

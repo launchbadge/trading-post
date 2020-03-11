@@ -38,7 +38,7 @@ export default Vue.defineComponent({
 
             let header;
 
-            if (!trade.isAccepted) {
+            if (!trade.isAccepted && trade.isValid && trade.requestee.publicKey === getCurrentUser()!.publicKey) {
                 header = (
                     <div class="Trade-header">
                         <div class="Trade-headerTitle">
@@ -122,8 +122,8 @@ export default Vue.defineComponent({
 .Trade-swapIcon {
     fill: var(--colorWhite);
     height: 40px;
-    margin-top: 15px;
     opacity: 0.5;
     justify-self: center;
+    align-self: center;
 }
 </style>
