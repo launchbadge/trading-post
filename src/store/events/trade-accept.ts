@@ -8,13 +8,19 @@ import { Trade } from "../../domain/trade";
 import { validateTrade, removeInvalidOpenTrades } from "../../service/trade";
 import { getTrade } from "../trade";
 
+let resolvePublish: (() => void) | null = null;
+
 export async function publish(tradeId: number): Promise<void> {
+    const promise = new Promise((resolve) => {
+        resolvePublish = resolve
+    });
     await hedera.submitMessage(new ConsensusTopicId(state.topicId!), {
         type: EventType.TradeAccept,
         payload: {
             tradeId,
         }
     });
+    await promise;
 }
 
 export function handle(event: TradeAcceptEvent): void {
@@ -51,4 +57,5 @@ export function _handle(trade: Trade): void {
     trade.isAccepted = true;
     trade.isValid = false;
     removeInvalidOpenTrades();
+    resolvePublish?.();
 }
