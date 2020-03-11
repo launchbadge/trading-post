@@ -59,7 +59,7 @@ export default Vue.defineComponent({
     display: flex;
     margin-right: 20px;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     flex-grow: 1;
 }
 
