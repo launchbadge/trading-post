@@ -22,7 +22,7 @@ export default Vue.defineComponent({
                 state.network.trades.values()
             ).filter(
                 (trade) => !state.network.openTrades.includes(trade.id)
-            );
+            ).reverse().slice(0, 10);
 
             if (trades.length === 0) {
                 return (
@@ -45,7 +45,7 @@ export default Vue.defineComponent({
                                     router.push({ name: "Trade", params: { id: trade.id.toString() } });
                                 }}
                             />
-                        )).reverse()
+                        ))
                     }
                 </div>
             );
