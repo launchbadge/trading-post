@@ -53,7 +53,7 @@ export default Vue.defineComponent({
                             onClick={handleSubmit}
                             busy={busy.value || !isLoaded.value}
                         >
-                            Signup
+                            Sign Up
                         </Button>
                     </div>
                 </form>: null}
