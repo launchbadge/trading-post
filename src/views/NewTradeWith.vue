@@ -4,6 +4,7 @@ import state from "../store/state";
 import { useRouter } from "vue-router";
 import User from "../components/UserRow.vue";
 import * as user from "../domain/user";
+import { getCurrentUser } from "../store/user";
 
 export default Vue.defineComponent({
     name: "NewTradeWith",
@@ -24,7 +25,11 @@ export default Vue.defineComponent({
                 </div>
                 <div class="NewTradeWith-main">
                     {
-                        Array.from(state.network.users.values()).map((user) => (
+                        Array.from(
+                            state.network.users.values()
+                        ).filter(
+                            (user: user.User) => user !== getCurrentUser()
+                        ).map((user) => (
                             <User
                                 key={user.publicKey}
                                 user={user}
