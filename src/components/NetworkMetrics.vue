@@ -1,14 +1,15 @@
 <script lang="tsx">
-import { defineComponent, computed } from "vue";
+import * as Vue from "vue";
 import Metric from "./Metric.vue";
 import * as metrics from "../service/metrics";
 
-export default defineComponent({
+export default Vue.defineComponent({
+    name: "NetworkMetrics",
     setup() {
-        const starEmoji = computed(() => <span>{ metrics.mostRequestedEmoji() }</span>);
-        const commonEmoji = computed(() => <span>{ metrics.mostAcceptedEmoji() }</span>);
-        const emojiWhale = computed(() => <span>{ metrics.userWithMostEmoji() }</span>);
-        const goldWhale = computed(() => <span>{ metrics.userWithMostGold() }</span>);
+        const starEmoji = Vue.computed(() => <span>{ metrics.mostRequestedEmoji() }</span>);
+        const commonEmoji = Vue.computed(() => <span>{ metrics.mostAcceptedEmoji() }</span>);
+        const emojiWhale = Vue.computed(() => <span>{ metrics.userWithMostEmoji() }</span>);
+        const goldWhale = Vue.computed(() => <span>{ metrics.userWithMostGold() }</span>);
         return (): JSX.Element => (
             <div class="NetworkMetrics-main">
                 <Metric title="Most Requested Emoji">{ starEmoji.value }</Metric>
