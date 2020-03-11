@@ -22,10 +22,9 @@ export default Vue.defineComponent({
 
 <style>
 .Metric-main {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .Metric-title {
@@ -34,11 +33,14 @@ export default Vue.defineComponent({
 }
 
 .Metric-content {
-    padding-block: 10px;
+    border: 1px solid var(--colorGlazedGranite);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 }
 
 .Metric-value {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--colorBeer);
 }
 </style>
