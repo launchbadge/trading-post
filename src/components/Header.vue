@@ -10,10 +10,12 @@ import logo from "../assets/trading-post.svg";
 
 export default Vue.defineComponent({
     render() {
+        const user = getCurrentUser();
+
         return (
             <header class="Header">
                 <RouterLink to={{name: "Home"}}><img src={logo} class="Header-logo" alt="Trading Post" /></RouterLink>
-                <Avatar publicKey={ getCurrentUser() != null ? getCurrentUser()!.publicKey.toString() : "" } />
+                { user != null ? <Avatar publicKey={ user.publicKey.toString() } /> : null }
             </header>
         );
     }
