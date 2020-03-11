@@ -1,15 +1,29 @@
 <script lang="tsx">
 import * as Vue from "vue";
 import Metric from "./Metric.vue";
+import UserVue from "./User.vue";
 import * as metrics from "../service/metrics";
+import { AllEmoji } from "../domain/tokens";
 
 export default Vue.defineComponent({
     name: "NetworkMetrics",
     setup() {
-        const starEmoji = Vue.computed(() => <span>{ metrics.mostRequestedEmoji() }</span>);
-        const commonEmoji = Vue.computed(() => <span>{ metrics.mostAcceptedEmoji() }</span>);
-        const emojiWhale = Vue.computed(() => <span>{ metrics.userWithMostEmoji() }</span>);
-        const goldWhale = Vue.computed(() => <span>{ metrics.userWithMostGold() }</span>);
+        const starEmoji = Vue.computed(() => 
+        <div class="emojiMetric">
+            { AllEmoji[ metrics.mostRequestedEmoji() ] }
+        </div>);
+        const commonEmoji = Vue.computed(() => 
+        <div class="emojiMetric">
+            { AllEmoji[ metrics.mostAcceptedEmoji() ] }
+        </div>);
+        const emojiWhale = Vue.computed(() => 
+        <div class="userMetric">
+            <UserVue user={ metrics.userWithMostEmoji() } />
+        </div>);
+        const goldWhale = Vue.computed(() => 
+        <div class="userMetric">
+            <UserVue user={ metrics.userWithMostGold() } />
+        </div>);
         return (): JSX.Element => (
             <div class="NetworkMetrics-main">
                 <Metric title="Most Requested Emoji">{ starEmoji.value }</Metric>
@@ -30,5 +44,12 @@ export default Vue.defineComponent({
     border-radius: 2px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.emojiMetric {
+    font-size: 36px;
+    margin-inline: 6px;
+    font-family: 'NotoColorEmoji';
 }
 </style>

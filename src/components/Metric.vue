@@ -20,6 +20,18 @@ export default Vue.defineComponent({
 
 <style>
 .Metric-main {
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Metric-title {
+    font-size: 20px;
+    color: var(--colorBeer);
+}
+
+.Metric-content {
+    padding-block-start: 10px;
 }
 </style>
