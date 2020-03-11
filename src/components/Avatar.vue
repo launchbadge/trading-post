@@ -16,11 +16,15 @@ export default Vue.defineComponent({
         const container = Vue.ref<HTMLElement | null>(null);
 
         Vue.onMounted(() => {
-            container.value!.innerHTML = contents.value;
+            if (container.value != null) {
+                container.value.innerHTML = contents.value;
+            }
         });
 
         Vue.onUpdated(() => {
-            container.value!.innerHTML = contents.value;
+            if (container.value != null) {
+                container.value.innerHTML = contents.value;
+            }
         });
 
         return () => (
