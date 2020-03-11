@@ -6,3 +6,6 @@ dist/
 
 # editor files
 .idea/
+
+# environment file
+.env
