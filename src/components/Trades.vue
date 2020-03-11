@@ -18,7 +18,11 @@ export default Vue.defineComponent({
         const router = useRouter();
 
         return () => {
-            const trades = Array.from(state.network.trades.values());
+            const trades = Array.from(
+                state.network.trades.values()
+            ).filter(
+                (trade) => !state.network.openTrades.includes(trade.id)
+            );
 
             if (trades.length === 0) {
                 return (
