@@ -8,7 +8,7 @@ import { AllEmoji } from "../domain/tokens";
 import state from "../store/state";
 import TradeRow from "./TradeRow.vue";
 import { useRouter } from "vue-router";
-import { validateTrade } from "../service/trade";
+import { validateTrade, removeInvalidOpenTrades } from "../service/trade";
 
 interface Props {
     user: User;
@@ -25,7 +25,7 @@ export default Vue.defineComponent({
             if (!isCheckingTime.value) {
                 return;
             } else {
-                state.network.openTrades.forEach((trade) => validateTrade(state.network.trades.get(trade)!));
+                removeInvalidOpenTrades();
                 timeoutId.value = window.setTimeout(refreshValidity, 1000);
             }   
         }

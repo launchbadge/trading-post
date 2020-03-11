@@ -5,7 +5,7 @@ import state from "../state";
 import { Gold } from "../../domain/tokens";
 import { validateSignature } from "../../service/crypto";
 import { Trade } from "../../domain/trade";
-import { validateTrade } from "../../service/trade";
+import { validateTrade, removeInvalidOpenTrades } from "../../service/trade";
 import { getTrade } from "../trade";
 
 export async function publish(tradeId: number): Promise<void> {
@@ -50,14 +50,5 @@ export function _handle(trade: Trade): void {
     // Accepted, cannot be acted on
     trade.isAccepted = true;
     trade.isValid = false;
-
-    // Remove invalidated trades
-    // Also marks trades with isValid: false
-    const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(getTrade(id)!))
-    invalidTradeIds.map((id) => {
-        const index = state.network.openTrades.indexOf(id);
-        if (index >= 0) {
-            state.network.openTrades.splice(index, 1);
-        }
-    });
+    removeInvalidOpenTrades();
 }

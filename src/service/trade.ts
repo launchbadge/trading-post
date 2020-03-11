@@ -4,6 +4,8 @@ import { User } from "../domain/user";
 import { Gold, hasSubset } from "../domain/tokens";
 import { getUser } from "../store/user";
 import BigNumber from "bignumber.js";
+import state from "../store/state";
+import { getTrade } from "../store/trade";
 
 export function parseTrade(event: TradeRequestEvent): Trade | undefined {
     let requestee: User | null;
@@ -98,4 +100,15 @@ export function validateTrade(trade: Trade): boolean {
     }
 
     return trade.isValid;
+}
+
+export function removeInvalidOpenTrades(): void {
+    // Validate trades and remove invalid from openTrades
+    const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(getTrade(id)!))
+    invalidTradeIds.map((id) => {
+        const index = state.network.openTrades.indexOf(id);
+        if (index >= 0) {
+            state.network.openTrades.splice(index, 1);
+        }
+    });
 }
