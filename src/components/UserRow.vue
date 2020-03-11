@@ -64,7 +64,7 @@ export default Vue.defineComponent({
 }
 
 .Holder-balanceEmoji {
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }
 
