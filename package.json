@@ -12,7 +12,7 @@
         "build": "cross-env NODE_ENV=\"development\" TS_NODE_PROJECT=\"tsconfig.node.json\" gulp build",
         "postinstall": "patch-package",
         "topic": "ts-node scripts/create-topic.ts",
-        "envoy:up": "bash -c 'docker run -dt -v $(pwd)/envoy.yaml:/etc/envoy/envoy.yaml:ro --name trading-post-mirror-envoy -p 11206:11206 envoyproxy/envoy:latest'",
+        "envoy:up": "bash -c 'docker run -dt -v $(pwd)/envoy.yaml:/etc/envoy/envoy.yaml:ro --name trading-post-mirror-envoy -p 11206:11206 envoyproxy/envoy:v1.13.1'",
         "envoy:down": "bash -c 'docker stop trading-post-mirror-envoy && docker rm trading-post-mirror-envoy'"
     },
     "dependencies": {
