@@ -42,12 +42,15 @@ export function handle(event: TradeRequestEvent): void {
         state.network.trades.set(event.id, trade);
         const currentUserPublicKey = getCurrentUser()?.publicKey!;
 
+        // Validate the trade
+        const isValid = validateTrade(trade);
+
         // Trade involves us
         if (currentUserPublicKey === event.payload.requesteePublicKey ||
             currentUserPublicKey === event.payload.requestorPublicKey) {
                 
-                // If the trade is valid
-                if (validateTrade(trade)) {
+                // If the trade is valid, add it to openTrades
+                if (isValid) {
                     state.network.openTrades.push(event.id);
                 }
         }
