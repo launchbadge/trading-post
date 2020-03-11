@@ -5,6 +5,8 @@ import OpenTrades from "../components/OpenTrades.vue";
 import Trades from "../components/Trades.vue";
 import { getCurrentUser } from "../store/user";
 import { useRouter } from "vue-router";
+import { User } from "../domain/user";
+import { computed } from "vue";
 
 export default Vue.defineComponent({
     setup() {
@@ -14,24 +16,30 @@ export default Vue.defineComponent({
             router.push({ name: "NewTradeWith" });
         }
 
+        const user = computed((): User => {
+            return getCurrentUser()!
+        });
+
         return () => (
             <div class="Home">
-                {/* TODO: Get the current user object here */}
+                <div class="Home-heading">
+                    Metrics
+                </div>
                 <UserRow
-                    user={getCurrentUser()!}
+                    user={user.value}
                     onPressTrade={handlePressTrade}
                 />
                 <div class="Home-heading">
                     Open Trades
                 </div>
                 <OpenTrades
-                    user={getCurrentUser()!}
+                    user={user.value}
                 />
                 <div class="Home-heading">
                     Recent Trades
                 </div>
                 <Trades
-                    user={getCurrentUser()!}
+                    user={user.value}
                 />
             </div>
         );
