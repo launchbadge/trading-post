@@ -14,7 +14,9 @@ export default Vue.defineComponent({
 
         return (
             <header class="Header">
-                <RouterLink to={{name: "Home"}}><img src={logo} class="Header-logo" alt="Trading Post" /></RouterLink>
+                <RouterLink to={{name: "Home"}} class="Header-link">
+                    <img src={logo} class="Header-logo" alt="TradingPost" />
+                </RouterLink>
                 { user != null ? <Avatar publicKey={ user.publicKey.toString() } /> : null }
             </header>
         );
@@ -32,8 +34,13 @@ export default Vue.defineComponent({
     padding: 16px;
 }
 
+.Header-link {
+    display: flex;
+    align-items: center;
+}
+
 .Header-logo {
     width: 135px;
-    height: 30px;
+    user-select: none;
 }
 </style>
