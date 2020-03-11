@@ -69,21 +69,23 @@ export default Vue.defineComponent({
                         <UserVue user={ props.user }/>
                         { props.readonly ? null : <GoldAmount amount={ props.user.balance.gold.toFormat() } /> }
                     </div>
-                    <div class="TradeWindow-gold">
-                        <input
-                            readonly={props.readonly}
-                            class="TradeWindow-goldInput"
-                            type="text"
-                            value={props.gold.toString()}
-                            onChange={ handleChangeGold }
-                        />
-                        <div class="TradeWindow-goldIconContainer">
-                            <Icon class="TradeWindow-goldIcon" d={ mdiCoinOutline } />
-                        </div>
-                    </div>
-                    <div class="TradeWindow-main">
-                        { emojiList }
-                    </div>
+                    {
+                        props.readonly && props.gold.eq(0) ? 
+                            null :
+                            <div class="TradeWindow-gold">
+                                <input
+                                    readonly={props.readonly}
+                                    class="TradeWindow-goldInput"
+                                    type="text"
+                                    value={props.gold.toString()}
+                                    onChange={ handleChangeGold }
+                                />
+                                <div class="TradeWindow-goldIconContainer">
+                                    <Icon class="TradeWindow-goldIcon" d={ mdiCoinOutline } />
+                                </div>
+                            </div>
+                    }
+                    { emojiList.length > 0 ? <div class="TradeWindow-main">{ emojiList }</div> : null }
                 </div>
             );
         };
@@ -144,7 +146,7 @@ export default Vue.defineComponent({
     border-bottom-right-radius: 0;
     border-color: transparent;
     flex-grow: 1;
-    padding: 10px 12px;
+    padding: 15px 12px;
     font-size: inherit;
     font-family: inherit;
     background: transparent;
