@@ -18,7 +18,7 @@ export default Vue.defineComponent({
         const name = Vue.ref("");
         const busy = Vue.ref(false);
         const isEmpty = Vue.ref(false);
-        const isLoaded = Vue.computed(() => state.network.sequenceLength === state.network.currentSequenceNumber);
+        const isLoaded = Vue.computed(() => state.network.sequenceLength > 0 && state.network.sequenceLength === state.network.currentSequenceNumber);
 
         const clearState = () => {
             name.value = "";
@@ -26,7 +26,7 @@ export default Vue.defineComponent({
 
         const handleChange = (event: Event) => {
             const e = event.target as HTMLInputElement;
-            name.value = e.value;
+            name.value = e.value.trim();
         }
 
         const handleSubmit = (event: Event) => {
@@ -43,11 +43,12 @@ export default Vue.defineComponent({
         return () => (
             <div class="Signup-container">
                 <div class="Signup-title">
-                    { isLoaded.value ? (isEmpty.value ?  "Please Enter a valid name" : "Sign up to get started") : "Checking for existing account..."}
+                    { isLoaded.value ? "Sign up to get started" : "Checking for existing account..." }
                 </div>
                 { isLoaded.value? <form class="Signup-form">
-                    <label for="name">Name</label>
-                    <input name="name" onChange={handleChange} type="string" value={name.value}/>
+                    <label class="label" for="name">Name</label>
+                    <input class="input" name="name" onChange={handleChange} type="text" value={name.value}/>
+                    <div class="error">{ isEmpty.value ? "Name is required" : "" }</div>
                     <div class="Signup-button">
                         <Button
                             onClick={handleSubmit}
@@ -56,6 +57,7 @@ export default Vue.defineComponent({
                             Sign Up
                         </Button>
                     </div>
+                    <div class="notice">{ busy.value ? "This may take a few minutes": "" }</div>
                 </form>: null}
             </div>
         );
@@ -67,10 +69,10 @@ export default Vue.defineComponent({
 .Signup-container {
     color: var(--colorWhite);
     flex-direction: column;
-    height: calc(100vh - 73px);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 }
 
 .Signup-title {
@@ -79,10 +81,9 @@ export default Vue.defineComponent({
 
 .Signup-form {
     display: flex;
-    width: 250px;
     flex-direction: column;
-    padding: 30px;
-    align-content: space-between;
+    width: 250px;
+    padding: 35px;
 }
 
 .Signup-button {
@@ -90,19 +91,35 @@ export default Vue.defineComponent({
     width: 100%;
 }
 
-label {
-    padding-block-end: 5px;
-    padding-inline-start: 5px;
+.label {
+    padding-block-end: 10px;
 }
-input {
+
+.input {
+    background-color: transparent;
     border-radius: 5px;
-    margin-block-end: 25px;
-    height: 35px; 
-    border: 2px solid var(--colorRiverStyx);
+    height: 35px;
+    padding-inline: 8px;
+    border: 2px solid var(--colorGlazedGranite);
+    color: var(--colorWhite);
 
     &:focus {
         outline: none;
-        border: 2px solid var(--colorBeer);
+        border-color: var(--colorBeer);
     }
+}
+
+.error {
+    height: 16px;
+    margin-block-start: 5px;
+    margin-block-end: 25px;
+    color: var(--colorTeaberry);
+}
+
+.notice {
+    height: 16px;
+    margin-block-start: 15px;
+    text-align: center;
+    color: color-mod(var(--colorWhite) alpha(70%));
 }
 </style>

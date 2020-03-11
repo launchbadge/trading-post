@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "Button",
     setup(props: Props, context) {
         return () => (
             <button onClick={props.onClick} class={["Button", {"is-busy": props.busy}]} disabled={ props.disabled || props.busy }>
