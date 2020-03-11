@@ -3,6 +3,7 @@ import * as Vue from "vue";
 
 interface Props {
     title: string;
+    value: string;
 }
 
 export default Vue.defineComponent({
@@ -12,6 +13,7 @@ export default Vue.defineComponent({
             <div class="Metric-main">
                 <div class="Metric-title">{ props.title }</div>
                 <div class="Metric-content">{ context.slots["default"]?.() }</div>
+                <div class="Metric-value">{ props.value }</div>
             </div>
         )
     }
@@ -32,6 +34,11 @@ export default Vue.defineComponent({
 }
 
 .Metric-content {
-    padding-block-start: 10px;
+    padding-block: 10px;
+}
+
+.Metric-value {
+    font-size: 18px;
+    color: var(--colorBeer);
 }
 </style>

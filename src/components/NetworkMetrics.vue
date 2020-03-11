@@ -8,28 +8,50 @@ import { AllEmoji } from "../domain/tokens";
 export default Vue.defineComponent({
     name: "NetworkMetrics",
     setup() {
+        const starEmojiMetric = Vue.computed(() => metrics.mostRequestedEmoji() as metrics.EmojiMetric);
+        const commonEmojiMetric = Vue.computed(() => metrics.mostAcceptedEmoji() as metrics.EmojiMetric);
+        const emojiWhaleMetric = Vue.computed(() => metrics.userWithMostEmoji() as metrics.UserMetric);
+        const goldWhaleMetric = Vue.computed(() => metrics.userWithMostGold() as metrics.UserMetric);
+        
         const starEmoji = Vue.computed(() => 
         <div class="emojiMetric">
-            { AllEmoji[ metrics.mostRequestedEmoji() ] }
+            { AllEmoji[ starEmojiMetric.value.value ] }
         </div>);
         const commonEmoji = Vue.computed(() => 
         <div class="emojiMetric">
-            { AllEmoji[ metrics.mostAcceptedEmoji() ] }
+            { AllEmoji[ commonEmojiMetric.value.value ] }
         </div>);
         const emojiWhale = Vue.computed(() => 
         <div class="userMetric">
-            <UserVue user={ metrics.userWithMostEmoji() } />
+            <UserVue user={ emojiWhaleMetric.value.value } />
         </div>);
         const goldWhale = Vue.computed(() => 
         <div class="userMetric">
-            <UserVue user={ metrics.userWithMostGold() } />
+            <UserVue user={ goldWhaleMetric.value.value } />
         </div>);
+        
         return (): JSX.Element => (
             <div class="NetworkMetrics-main">
-                <Metric title="Most Requested Emoji">{ starEmoji.value }</Metric>
-                <Metric title="Most Accepted Emoji">{ commonEmoji.value }</Metric>
-                <Metric title="Largest Emoji Collection">{ emojiWhale.value }</Metric>
-                <Metric title="Largest Gold Balance">{ goldWhale.value }</Metric>
+                <Metric 
+                    title="Most Wanted Emoji" 
+                    value={ `${starEmojiMetric.value.count} Requests` }>
+                    { starEmoji.value }
+                 </Metric>
+                <Metric 
+                    title="Most Traded Emoji" 
+                    value={ `${commonEmojiMetric.value.count} Trades` }>
+                    { commonEmoji.value }
+                </Metric>
+                <Metric 
+                    title="Most Emojis" 
+                    value={ `${emojiWhaleMetric.value.count} Emojis` }>
+                    { emojiWhale.value }
+                </Metric>
+                <Metric 
+                    title="Most Gold" 
+                    value={ `${goldWhaleMetric.value.count} Gold` }>
+                    { goldWhale.value }
+                </Metric>
             </div>
         );
     }
