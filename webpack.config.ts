@@ -81,7 +81,8 @@ const common: Configuration = {
         // @ts-ignore
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "src/index.html")
+            template: path.resolve(__dirname, "src/index.html"),
+            base: "/"
         }),
     ],
 };
