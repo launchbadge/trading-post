@@ -55,10 +55,10 @@ export default Vue.defineComponent({
             }
 
             const submitButtonDisabled = !(
-                (requestor.gold.isGreaterThan(new BigNumber(0)) ||
-                requestor.emoji.size > 0) ||
-                (requestee.gold.isGreaterThan(new BigNumber(0)) ||
-                requestee.emoji.size > 0)
+                requestor.gold.isGreaterThan(new BigNumber(0)) ||
+                requestor.emoji.size > 0 ||
+                requestee.gold.isGreaterThan(new BigNumber(0)) ||
+                requestee.emoji.size > 0
             );
 
             return (
