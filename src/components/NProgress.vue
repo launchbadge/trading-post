@@ -3,6 +3,7 @@ import * as Vue from 'vue'
 import state from "../store/state"
 
 export default Vue.defineComponent({
+    name: "NProgress",
     setup() {
         const style = Vue.computed(() => {
             const x = state.network.currentSequenceNumber;

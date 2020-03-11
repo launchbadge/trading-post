@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "EmojiList",
     setup(props: Props) {
         return () => (
             <div class="EmojiList">

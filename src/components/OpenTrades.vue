@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "OpenTrades",
     setup(props: Props) {
         const router = useRouter();
 

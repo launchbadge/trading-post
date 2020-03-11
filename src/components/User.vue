@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "User",
     setup(props: Props) {
         return () => (
             <div class="User">

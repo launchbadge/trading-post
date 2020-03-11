@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "UserRow",
     setup(props: Props) {
         return () => (
             <div class="Holder">

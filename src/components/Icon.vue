@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "Icon",
     setup(props: Props) {
         return () => (
             <svg viewBox="0 0 24 24"><path d={ props.d } /></svg>

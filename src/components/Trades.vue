@@ -14,6 +14,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "Trades",
     setup(props: Props) {
         const router = useRouter();
 

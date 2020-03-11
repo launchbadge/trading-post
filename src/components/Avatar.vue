@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "Avatar",
     setup(props: Props) {
         const contents = Vue.computed(() => {
             return jdenticon.toSvg(props.publicKey.slice("302a300506032b6570032100".length), 36, { replaceMode: "never" });

@@ -2,6 +2,7 @@
 import * as Vue from "vue";
 
 export default Vue.defineComponent({
+    name: "Spinner",
     setup() {
         return () => (
             <div class="Spinner-wrapper">

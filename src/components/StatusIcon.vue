@@ -14,6 +14,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "StatusIcon",
     setup(props: Props) {
         return () => {
             switch (props.accepted) {

@@ -9,6 +9,7 @@ import { User } from "../domain/user";
 import { computed } from "vue";
 
 export default Vue.defineComponent({
+    name: "Home",
     setup() {
         const router = useRouter();
 

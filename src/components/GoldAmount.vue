@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default Vue.defineComponent({
+    name: "GoldAmount",
     setup(props: Props) {
         return () => (
             <div class={["GoldAmount", { "GoldAmount-reverse": props.reverse } ]}>
