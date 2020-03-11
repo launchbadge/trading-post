@@ -9,3 +9,8 @@
     --colorTeaberry: #de3d58;
     --colorGlazedGranite: #5c5f63;
 }
+
+@font-face {
+    font-family: 'NotoColorEmoji';
+    src: url('./assets/NotoColorEmoji.ttf') format('truetype');
+}

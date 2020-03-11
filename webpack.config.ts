@@ -63,6 +63,15 @@ const common: Configuration = {
                         loader: "img-loader",
                     }
                 ]
+            },
+            {
+                test: /\.(ttf)$/u,
+                include: path.resolve(__dirname, "src"),
+                use: [
+                    {
+                        loader: "file-loader",
+                    }
+                ]
             }
         ]
     },

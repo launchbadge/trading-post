@@ -37,6 +37,7 @@ export default Vue.defineComponent({
 .EmojiList-emoji {
     font-size: 20px;
     margin-inline: 6px;
+    font-family: 'NotoColorEmoji';
 }
 
 .EmojiList-plus {

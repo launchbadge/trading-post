@@ -113,6 +113,7 @@ export default Vue.defineComponent({
     user-select: none;
     box-sizing: border-box;
     font-size: 25px;
+    font-family: 'NotoColorEmoji';
 
     &:hover {
         background: rgba(255, 255, 255, 0.1);
