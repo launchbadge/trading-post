@@ -9,7 +9,7 @@ import { Configuration, Options } from "webpack";
 const common: Configuration = {
     entry: {
         app: [
-            path.resolve(__dirname, "src/shims.ts"),
+            path.resolve(__dirname, "src/shims/shims.ts"),
             path.resolve(__dirname, "src/index.ts")
         ]
     },
