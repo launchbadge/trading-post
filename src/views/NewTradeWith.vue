@@ -20,7 +20,7 @@ export default Vue.defineComponent({
                     New Trade
                 </div>
                 <div class="NewTradeWith-subTitle">
-                    Select to user to trade with
+                    Select a user to trade with
                 </div>
                 <div class="NewTradeWith-main">
                     {
