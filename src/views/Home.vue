@@ -3,6 +3,7 @@ import * as Vue from "vue";
 import UserRow from "../components/UserRow.vue";
 import OpenTrades from "../components/OpenTrades.vue";
 import Trades from "../components/Trades.vue";
+import NetworkMetrics from "../components/NetworkMetrics.vue";
 import { getCurrentUser } from "../store/user";
 import { useRouter } from "vue-router";
 import { User } from "../domain/user";
@@ -24,7 +25,11 @@ export default Vue.defineComponent({
         return () => (
             <div class="Home">
                 <div class="Home-heading">
-                    Metrics
+                    Network
+                </div>
+                <NetworkMetrics />
+                <div class="Home-heading">
+                    Me
                 </div>
                 <UserRow
                     user={user.value}
