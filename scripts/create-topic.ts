@@ -26,6 +26,6 @@ async function main(): Promise<void> {
     const topicId = await transactionReceipt.getConsensusTopicId();
 
     console.log(`topicId = ${topicId}`);
+    return;
 }
-
 void main();
