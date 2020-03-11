@@ -24,15 +24,13 @@ export default Vue.defineComponent({
         return () => (
             <div class="TradeRow">
                 <Avatar publicKey={ props.trade.requestor.publicKey } />
-                <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
-                <div class="TradeRow-goldSwap">
+                <div class="TradeRow-requestor">
+                    <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requestorEmoji } />
                     {!props.trade.requestorGold.eq(0) ? <GoldAmount amount={ props.trade.requestorGold.toFormat() } /> : null}
-                    <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
-                    {!props.trade.requesteeGold.eq(0) ? <div class="TradeRow-rightGold">
-                        <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/>
-                    </div> : null}
                 </div>
-                <div class="TradeRow-rightEmoji">
+                <Icon class="TradeRow-swapIcon" d={ mdiSwapHorizontalVariant } />
+                <div class="TradeRow-requestee">
+                    {!props.trade.requesteeGold.eq(0) ? <GoldAmount amount={ props.trade.requesteeGold.toFormat() } reverse={true}/> : null}
                     <EmojiList class="TradeRow-emojiList" emoji={ props.trade.requesteeEmoji } />
                 </div>
                 <Avatar publicKey={ props.trade.requestee.publicKey } />
@@ -51,7 +49,7 @@ export default Vue.defineComponent({
     padding: 16px;
     border-radius: 2px;
     display: inline-grid;
-    grid-template-columns: 1fr 5fr 230px 5fr 1fr 1fr 2fr;
+    grid-template-columns: auto 1fr min-content 1fr auto auto auto;
     align-items: center;
 }
 
@@ -59,32 +57,30 @@ export default Vue.defineComponent({
     margin-inline: 16px;
 }
 
-.TradeRow-goldSwap {
+.TradeRow-requestor {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.TradeRow-requestee {
     display: inline-grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    justify-content: center;
+    grid-template-columns: auto 1fr;
+
+    & .TradeRow-emojiList {
+        grid-column: 2;
+        justify-content: flex-end;
+    }
 }
 
 .TradeRow-swapIcon {
     height: 32px;
-    grid-column: 2;
     fill: var(--colorWhite);
-    margin-inline: 20px;
+    margin-inline: 10px;
     opacity: 0.7;
     justify-self: center;
-}
-
-.TradeRow-rightGold {
-    align-self: center;
-    justify-self: flex-start;
 }
 
 .TradeRow-accepted {
     justify-self: center;
 }
-
-.TradeRow-rightEmoji {
-    justify-self: flex-end;
-}
-
 </style>

@@ -22,9 +22,7 @@ export default Vue.defineComponent({
                     <UserVue user={ props.user } />
                 </div>
                 <div class="Holder-balance">
-                    <span class="Holder-balanceAmount">
-                        <EmojiList emoji={ props.user.balance.emoji } />
-                    </span>
+                    <EmojiList class="Holder-balanceEmoji" emoji={ props.user.balance.emoji } />
                     <Icon class="Holder-balanceIcon" d={ mdiEmoticonOutline } />
                 </div>
                 <GoldAmount amount={ props.user.balance.gold.toFormat() } />
@@ -51,23 +49,23 @@ export default Vue.defineComponent({
     margin-inline-start: 12px;
 }
 
-.Holder-info {
-    flex-grow: 1;
-}
-
 .Holder-balanceIcon {
     fill: var(--colorSpandexGreen);
     height: 24px;
+    margin-inline-start: 8px;
 }
 
 .Holder-balance {
     display: flex;
     margin-right: 20px;
     align-items: center;
+    justify-content: end;
+    flex-grow: 1;
 }
 
-.Holder-balanceAmount {
-    margin-inline-end: 8px;
+.Holder-balanceEmoji {
+    justify-content: end;
+    align-items: center;
 }
 
 .Holder-newTrade {

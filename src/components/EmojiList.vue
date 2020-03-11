@@ -6,25 +6,19 @@ import { mdiDotsHorizontal } from "@mdi/js";
 
 interface Props {
     emoji: Set<Emoji>;
-    limit?: number; 
 }
 
 export default Vue.defineComponent({
     setup(props: Props) {
-        return () => {
-            const limit = props.limit ?? 10;
-
-            return (
-                <div class="EmojiList">
-                    {
-                        Array.from(props.emoji).slice(0, limit).map((i) => (
-                            <div class="EmojiList-emoji">{ AllEmoji[i] }</div>
-                        ))
-                    }
-                    { props.emoji.size > limit ? <Icon class="EmojiList-plus" d={ mdiDotsHorizontal } />: null }
-                </div>
-            );
-        }
+        return () => (
+            <div class="EmojiList">
+                {
+                    Array.from(props.emoji).map((i) => (
+                        <div class="EmojiList-emoji">{ AllEmoji[i] }</div>
+                    ))
+                }
+            </div>
+        );
     }
 });
 </script>
@@ -32,17 +26,12 @@ export default Vue.defineComponent({
 <style>
 .EmojiList {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .EmojiList-emoji {
     font-size: 20px;
     margin-inline: 6px;
     font-family: 'NotoColorEmoji';
-}
-
-.EmojiList-plus {
-    height: 24px;
-    margin-inline: 6px;
-    fill: var(--colorGlazedGranite);
 }
 </style>
