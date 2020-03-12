@@ -13,6 +13,8 @@ let isListening = false;
 
 const textDecoder = new TextDecoder();
 
+let listenAttempts = 0;
+
 export function startListening(topicId: ConsensusTopicIdLike) {
     // Guard against being called multiple times
     if (isListening) return;
@@ -23,6 +25,7 @@ export function startListening(topicId: ConsensusTopicIdLike) {
         .setTopicId(new ConsensusTopicId(topicId))
         .setStartTime(0)
         .subscribe(mirrorClient, (response) => {
+            listenAttempts = 0;
             let data;
 
             console.debug("mirror", response.message);
@@ -55,6 +58,11 @@ export function startListening(topicId: ConsensusTopicIdLike) {
 
             handle(event);
         }, (error) => {
-            console.error(error);
+            console.warn(error);
+            listenAttempts += 1;
+            setTimeout(() => {
+                console.log("reconnecting...");
+                startListening(topicId);
+            }, listenAttempts * 250);
         })
 }
