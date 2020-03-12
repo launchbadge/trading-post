@@ -45,10 +45,14 @@ export function mostRequestedEmoji(): EmojiMetric | null {
                 .map((emoji: Emoji) => requestedEmojis.set(emoji, (requestedEmojis.get(emoji) ?? 0) + 1));
         }
 
-        const emoji = Array.from(requestedEmojis.entries())
-            .reduce((previous, current) => previous[1] > current[1] ? previous : current);
+        const requestedEmojiArray = Array.from(requestedEmojis.entries());
+        
+        if (requestedEmojiArray.length > 0) {
+            const emoji = requestedEmojiArray
+                .reduce((previous, current) => previous[1] > current[1] ? previous : current);
 
-        return { value: emoji[0], count: emoji[1] }
+            return { value: emoji[0], count: emoji[1] }
+        }
     }
 
     return null;
@@ -68,10 +72,14 @@ export function mostAcceptedEmoji(): EmojiMetric | null{
             emojis.map((emoji: Emoji) => requestedEmojis.set(emoji, (requestedEmojis.get(emoji) ?? 0) + 1));
         }
 
-        const emoji = Array.from(requestedEmojis.entries())
-            .reduce((previous, current) => previous[1] > current[1] ? previous : current);
+        const requestedEmojiArray = Array.from(requestedEmojis.entries());
 
-        return { value: emoji[0], count: emoji[1] }
+        if (requestedEmojiArray.length > 0) {
+            const emoji = requestedEmojiArray
+                .reduce((previous, current) => previous[1] > current[1] ? previous : current);
+
+            return { value: emoji[0], count: emoji[1] }
+        }
     }
     
     return null;
