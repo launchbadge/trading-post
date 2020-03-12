@@ -6,12 +6,16 @@ export default Vue.defineComponent({
     name: "NProgress",
     setup() {
         const style = Vue.computed(() => {
+            if (state.network.sequenceLength === 0) {
+                return {"width": `0%`};
+            }
+
             const x = state.network.currentSequenceNumber;
             const y = state.network.sequenceLength;
             const z = (x/y)*100; 
 
             return {"width": `${z}%`}  
-        })
+        });
 
         return() => (
             <div class="NProgress">
@@ -33,6 +37,6 @@ export default Vue.defineComponent({
 .NProgress-progress {
     height: 2px;
     background-color: var(--colorSpandexGreen);
-    transition: width 0.75s ease;
+    transition: width 0.75s ease-in-out;
 }
 </style>

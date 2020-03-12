@@ -44,6 +44,14 @@ export default Vue.defineComponent({
         background-color: rgba(255, 255, 255, 0.3);
         color: rgba(255, 255, 255, 0.7);
     }
-    
+
+    &:active {
+        background-color: var(--colorSoftToneInk);
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+    }
 }
 </style>

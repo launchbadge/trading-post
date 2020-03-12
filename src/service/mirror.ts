@@ -5,7 +5,7 @@ import { ConsensusTopicIdLike } from "@hashgraph/sdk/lib/consensus/ConsensusTopi
 import {getRunningHash} from "./hedera"
 import state from "../store/state"
 // Envoy Proxy
-const MIRROR_NODE_ADDRESS = "http://localhost:11206";
+const MIRROR_NODE_ADDRESS = "https://grpc-web.api.testnet.kabuto.sh";
 
 const mirrorClient = new MirrorClient(MIRROR_NODE_ADDRESS);
 
@@ -25,18 +25,28 @@ export function startListening(topicId: ConsensusTopicIdLike) {
         .subscribe(mirrorClient, (response) => {
             let data;
 
+            console.debug("mirror", response.message);
+
             try {
                 data = JSON.parse(textDecoder.decode(response.message));
                 state.network.currentSequenceNumber = response.sequenceNumber;
-                if (state.network.currentSequenceNumber > state.network.sequenceLength) {
-                    getRunningHash(state.topicId!);
-                }
+
             } catch (err) {
                 // Event is unprocessable
                 // No worries
+                state.network.currentSequenceNumber += 1;
                 console.warn(err);
                 return;
             }
+
+            try {
+                if (state.network.currentSequenceNumber > state.network.sequenceLength) {
+                    getRunningHash(state.topicId!);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
             const event: Event = {
                 id: response.sequenceNumber,
                 timestamp: response.consensusTimestamp.asDate(),

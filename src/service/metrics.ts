@@ -30,22 +30,24 @@ export function userWithMostGold(): Metric {
 }
 
 // Emoji that has been requested the most times
-export function mostRequestedEmoji(): Metric {
+export function mostRequestedEmoji(): Metric | null{
     const trades = Array.from(state.network.trades.values());
     const requestedEmojis = new Map<Emoji, number>();
     for (const trade of trades) {
         Array.from(trade.requesteeEmoji)
             .map((emoji: Emoji) => requestedEmojis.set(emoji, (requestedEmojis.get(emoji) ?? 0) + 1));
     }
-
-    const emoji = Array.from(requestedEmojis.entries())
+    if (trades != null){
+        const emoji = Array.from(requestedEmojis.entries())
         .reduce((previous, current) => previous[1] > current[1] ? previous : current);
 
-    return { value: emoji[0], count: emoji[1] }
+        return { value: emoji[0], count: emoji[1] }
+    }
+    return null;
 }
 
 // Emoji that has been requested and accepted on either side of a trade the most times
-export function mostAcceptedEmoji(): Metric {
+export function mostAcceptedEmoji(): Metric | null{
     const trades = Array.from(state.network.trades.values());
     const acceptedTrades: Trade[] = trades.filter((trade) => trade.isAccepted);
     const requestedEmojis = new Map<Emoji, number>();
@@ -55,9 +57,11 @@ export function mostAcceptedEmoji(): Metric {
         const emojis = requestorEmoji.concat(requesteeEmoji);
         emojis.map((emoji: Emoji) => requestedEmojis.set(emoji, (requestedEmojis.get(emoji) ?? 0) + 1));
     }
+    if (trades != null) {
+        const emoji = Array.from(requestedEmojis.entries())
+            .reduce((previous, current) => previous[1] > current[1] ? previous : current);
 
-    const emoji = Array.from(requestedEmojis.entries())
-        .reduce((previous, current) => previous[1] > current[1] ? previous : current);
-
-    return { value: emoji[0], count: emoji[1] }
+        return { value: emoji[0], count: emoji[1] }
+    }
+    return null;
 }

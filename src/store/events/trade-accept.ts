@@ -36,8 +36,13 @@ export function _handle(trade: Trade, acceptedTimestamp: Date): void {
     const requestor = state.network.users.get(trade.requestor.publicKey)!;
     const requestee = state.network.users.get(trade.requestee.publicKey)!;
 
+    const isRequesteeGoldInvalid = trade.requesteeGold.isNaN() || trade.requesteeGold.isNegative();
+    const isRequestorGoldInvalid = trade.requestorGold.isNaN() || trade.requestorGold.isNegative();
+
     if (acceptedTimestamp.getTime() > expiration) {
         console.log("accepted event was too late");
+    } else if (isRequestorGoldInvalid || isRequesteeGoldInvalid) {
+        console.log("gold value(s) invalid");
     } else if (!hasSubset(requestor.balance.emoji, trade.requestorEmoji)) {
         console.log("requestor does not have the emoji to be traded");
     } else if (!hasSubset(requestee.balance.emoji, trade.requesteeEmoji)) {

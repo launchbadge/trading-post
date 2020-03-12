@@ -8,7 +8,7 @@ import { AllEmoji } from "../domain/tokens";
 import Avatar from "./Avatar.vue";
 import UserVue from "./User.vue";
 import GoldAmount from "./GoldAmount.vue";
-
+import Button from "./Button.vue";
 interface Props {
     user: User;
     onPressTrade: () => void;
@@ -27,9 +27,9 @@ export default Vue.defineComponent({
                     <Icon class="Holder-balanceIcon" d={ mdiEmoticonOutline } />
                 </div>
                 <GoldAmount amount={ props.user.balance.gold.toFormat() } />
-                <button class="Holder-newTrade" onClick={ props.onPressTrade } >
+                <Button class="Holder-newTrade" onClick={ props.onPressTrade } >
                     Trade
-                </button>
+                </Button>
             </div>
         );
     }
