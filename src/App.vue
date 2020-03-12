@@ -18,23 +18,16 @@ export default Vue.defineComponent({
             void getRunningHash(state.topicId!);
         });
 
-        const main = Vue.ref(<Signup />)    
-        Vue.watch(
-            () => doesCurrentUserExist(), 
-            (newVal) => {
-                if (newVal) {
-                    main.value = (
-                        <div class="App-main">
-                            <View/>
-                        </div>
-                    )
-                } else {
-                    main.value = <Signup />
-                }
-            } 
-            )
+        const main = Vue.computed(() => doesCurrentUserExist() ?
+            (
+                <div class="App-main">
+                    <View/>
+                </div>
+            ) :
+            <Signup />
+        );
 
-        return() => (
+        return () => (
             <div class="App">
                 <Header/>
                 <NProgress />
