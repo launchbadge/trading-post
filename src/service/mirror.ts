@@ -14,6 +14,7 @@ let isListening = false;
 const textDecoder = new TextDecoder();
 
 let listenAttempts = 0;
+let lastReceivedResponseTime: Date | number = 0;
 
 export function startListening(topicId: ConsensusTopicIdLike) {
     // Guard against being called multiple times
@@ -23,9 +24,11 @@ export function startListening(topicId: ConsensusTopicIdLike) {
     // Assume that the topic _does_ exist
     new MirrorConsensusTopicQuery()
         .setTopicId(new ConsensusTopicId(topicId))
-        .setStartTime(0)
+        .setStartTime(lastReceivedResponseTime)
         .subscribe(mirrorClient, (response) => {
             listenAttempts = 0;
+            lastReceivedResponseTime = response.consensusTimestamp.asDate();
+
             let data;
 
             try {
