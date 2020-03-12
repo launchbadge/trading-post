@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import NewTradeWith from "./views/NewTradeWith.vue";
 import NewTradeFor from "./views/NewTradeFor.vue";
 import Trade from "./views/Trade.vue";
+import AllTrades from "./views/AllTrades.vue";
 
 
 const router = createRouter({
@@ -23,6 +24,11 @@ const router = createRouter({
             path: "/trade/new/:user",
             component: NewTradeFor,
             name: "NewTradeFor"
+        },
+        {
+            path: "/trade/",
+            component: AllTrades,
+            name: "AllTrades"
         },
         {
             path: "/trade/:id",

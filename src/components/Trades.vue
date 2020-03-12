@@ -8,6 +8,7 @@ import { AllEmoji } from "../domain/tokens";
 import state from "../store/state";
 import TradeRow from "./TradeRow.vue";
 import { useRouter } from "vue-router";
+import Button from "./Button.vue";
 
 interface Props {
     user: User;
@@ -25,6 +26,10 @@ export default Vue.defineComponent({
                 (trade) => !state.network.openTrades.includes(trade.id)
             ).reverse().slice(0, 10);
         });
+
+        function handleClick() {
+            void router.push({ name: "AllTrades" });
+        }
 
         return () => {
             if (trades.value.length === 0) {
@@ -50,6 +55,7 @@ export default Vue.defineComponent({
                             />
                         ))
                     }
+                    <Button class="Trades-allTrades" onClick={ handleClick }>All Trades</Button>
                 </div>
             );
         };
@@ -68,5 +74,10 @@ export default Vue.defineComponent({
     color: white;
     opacity: 0.5;
     font-style: italic;
+}
+
+.Trades-allTrades {
+    justify-self: end;
+    background-color: var(--colorSoftToneInk);
 }
 </style>
