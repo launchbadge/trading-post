@@ -31,7 +31,6 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
         return;
     }
 
-
     const trade: Trade = {
         id: event.id,
         validStartAt: event.timestamp,
