@@ -9,3 +9,6 @@ dist/
 
 # environment file
 .env
+
+# firebase cache
+.firebase/
