@@ -3,7 +3,7 @@ import * as Vue from "vue";
 
 interface Props {
     title: string;
-    value: string;
+    value?: string;
 }
 
 export default Vue.defineComponent({
@@ -12,7 +12,7 @@ export default Vue.defineComponent({
         return (): JSX.Element => (
             <div class="Metric-main">
                 <div class="Metric-title">{ props.title }:</div>
-                <div class="Metric-value">{ props.value }</div>
+                <div class="Metric-value">{ props.value ?? "-" }</div>
                 <div class="Metric-content">{ context.slots["default"]?.() }</div>
             </div>
         )
