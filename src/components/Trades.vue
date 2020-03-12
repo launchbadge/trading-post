@@ -78,6 +78,6 @@ export default Vue.defineComponent({
 
 .Trades-allTrades {
     justify-self: end;
-    background-color: var(--colorSoftToneInk);
+    margin: 10px 0;
 }
 </style>
