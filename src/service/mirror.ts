@@ -35,7 +35,7 @@ export function startListening(topicId: ConsensusTopicIdLike) {
                 // Event is unprocessable
                 // No worries
                 state.network.currentSequenceNumber += 1;
-                console.warn(err);
+                console.warn(`unparseable message: ${response.message}`);
                 return;
             }
 

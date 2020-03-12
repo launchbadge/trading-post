@@ -1,6 +1,5 @@
 import { User } from "../domain/user";
-import { Emoji } from "../domain/tokens"; 
-import { Trade } from "../domain/trade";
+import { Emoji } from "../domain/tokens";
 import state from "../store/state";
 
 export type Metric = UserMetric | EmojiMetric;
@@ -34,7 +33,6 @@ export function mostRequestedEmoji(): EmojiMetric | null {
     const trades = Array.from(state.network.trades.values());
     const requestedEmojis = new Map<Emoji, number>();
     
-    console.info(`${trades.length}`);
     if (trades.length > 0) {
         for (const trade of trades) {
             Array.from(trade.requesteeEmoji)
@@ -46,7 +44,7 @@ export function mostRequestedEmoji(): EmojiMetric | null {
 
         return { value: emoji[0], count: emoji[1] }
     }
-    
+
     return null;
 }
 
