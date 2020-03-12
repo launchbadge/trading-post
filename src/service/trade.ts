@@ -62,6 +62,7 @@ export function validateTrade(id: number): boolean {
 
     if (trade.requestorGold.isNaN() || trade.requesteeGold.isNaN()) {
         console.warn(`Invalid trade ${JSON.stringify(trade)}: NaN gold amount`);
+        trade.isValid = false;
     }
     
     if (trade.requestorGold.isNegative() || trade.requesteeGold.isNegative()) {
