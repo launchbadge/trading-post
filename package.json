@@ -9,7 +9,7 @@
     ],
     "scripts": {
         "serve": "cross-env NODE_ENV=\"development\" TS_NODE_PROJECT=\"tsconfig.node.json\" gulp serve",
-        "build": "cross-env NODE_ENV=\"production\" TS_NODE_PROJECT=\"tsconfig.node.json\" gulp build",
+        "build": "cross-env NODE_ENV=\"development\" TS_NODE_PROJECT=\"tsconfig.node.json\" gulp build",
         "postinstall": "patch-package",
         "topic": "cross-env NODE_ENV=\"development\" TS_NODE_PROJECT=\"tsconfig.node.json\" TS_NODE_TRANSPILE_ONLY=\"true\" TS_NODE_FILES=\"false\" ts-node scripts/create-topic.ts",
         "envoy:up": "bash -c 'docker run -dt -v $(pwd)/envoy.yaml:/etc/envoy/envoy.yaml:ro --name trading-post-mirror-envoy -p 11206:11206 envoyproxy/envoy:v1.13.1'",
