@@ -60,6 +60,10 @@ export function validateTrade(id: number): boolean {
         console.warn(`Invalid trade ${JSON.stringify(trade)}: timed out`);
         trade.isValid = false;
     }
+
+    if (trade.requestorGold.isNaN() || trade.requesteeGold.isNaN()) {
+        console.warn(`Invalid trade ${JSON.stringify(trade)}: NaN gold amount`);
+    }
     
     if (trade.requestorGold.isNegative() || trade.requesteeGold.isNegative()) {
         console.warn(`Invalid trade ${JSON.stringify(trade)}: a gold amount is negative`);
