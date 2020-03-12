@@ -15,15 +15,21 @@ export interface EmojiMetric {
 }
 
 // User with the largest number of Emojis
-export function userWithMostEmoji(): UserMetric {
+export function userWithMostEmoji(): UserMetric | null {
     const users = Array.from(state.network.users.values());
+
+    if (users.length < 1) return null;
+
     const user = users.reduce((previous, current) => previous.balance.emoji.size > current.balance.emoji.size ? previous : current)
     return { value: user, count: user.balance.emoji.size }
 }
 
 // User with the largest gold balance
-export function userWithMostGold(): UserMetric {
+export function userWithMostGold(): UserMetric | null {
     const users = Array.from(state.network.users.values());
+
+    if (users.length < 1) return null;
+
     const user = users.reduce((previous, current) => previous.balance.gold.isGreaterThan(current.balance.gold) ? previous : current)
     return { value: user, count: user.balance.gold.toNumber() }
 }

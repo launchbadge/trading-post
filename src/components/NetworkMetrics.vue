@@ -23,11 +23,11 @@ export default Vue.defineComponent({
         </div>);
         const emojiWhale = Vue.computed(() => 
         <div class="userMetric">
-            <UserVue user={ emojiWhaleMetric.value.value } />
+            { emojiWhaleMetric.value != null ? <UserVue user={ emojiWhaleMetric.value.value } /> : null }
         </div>);
         const goldWhale = Vue.computed(() => 
         <div class="userMetric">
-            <UserVue user={ goldWhaleMetric.value.value } />
+            { goldWhaleMetric.value != null ? <UserVue user={ goldWhaleMetric.value.value } /> : null }
         </div>);
         
         return (): JSX.Element => (
@@ -44,12 +44,12 @@ export default Vue.defineComponent({
                 </Metric>
                 <Metric 
                     title="Most Emojis" 
-                    value={ `${emojiWhaleMetric.value.count} Emojis` }>
+                    value={ emojiWhaleMetric.value != null ? `${emojiWhaleMetric.value.count} Emojis` : "" }>
                     { emojiWhale.value }
                 </Metric>
                 <Metric 
                     title="Most Gold" 
-                    value={ `${goldWhaleMetric.value.count} Gold` }>
+                    value={ goldWhaleMetric.value != null ? `${goldWhaleMetric.value.count} Gold`: "" }>
                     { goldWhale.value }
                 </Metric>
             </div>
