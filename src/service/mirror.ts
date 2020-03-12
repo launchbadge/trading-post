@@ -44,7 +44,7 @@ export function startListening(topicId: ConsensusTopicIdLike) {
 
             try {
                 if (state.network.currentSequenceNumber > state.network.sequenceLength) {
-                    getRunningHash(state.topicId!);
+                    state.network.sequenceLength = state.network.currentSequenceNumber + 1;
                 }
             } catch (error) {
                 console.log(error);
