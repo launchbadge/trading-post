@@ -11,6 +11,7 @@ import Button from "../components/Button.vue";
 import { AllEmoji, Emoji, Gold } from "../domain/tokens";
 import * as tradeAccept from "../store/events/trade-accept";
 import { Trade } from "../domain/trade";
+import StatusIcon, { AcceptStatus } from "../components/StatusIcon.vue";
 
 export default Vue.defineComponent({
     name: "Trade",
@@ -35,6 +36,8 @@ export default Vue.defineComponent({
                 // No point in continuing if someone refreshed the page
                 return null;
             }
+
+            const acceptStatus = trade.isAccepted ? AcceptStatus.accepted : (trade.isValid ? AcceptStatus.pending : AcceptStatus.rejected);
 
             let header;
 
@@ -69,7 +72,10 @@ export default Vue.defineComponent({
                             onAddEmoji={()=>{}}
                             onRemoveEmoji={()=>{}}
                         />
-                        <Icon class="Trade-swapIcon" d={ mdiSwapHorizontalVariant } />
+                        <div class="Trade-middle">
+                            <StatusIcon class="TradeRow-accepted" accepted={ acceptStatus } />
+                            <Icon class="Trade-swapIcon" d={ mdiSwapHorizontalVariant } />
+                        </div>
                         <TradeWindow
                             readonly
                             user={ trade.requestee }
@@ -79,6 +85,9 @@ export default Vue.defineComponent({
                             onAddEmoji={()=>{}}
                             onRemoveEmoji={()=>{}}
                         />
+                    </div>
+                    <div class="Trade-back">
+                        <Button onClick={() => router.push("/")}>Go Back</Button>
                     </div>
                 </div>
             );
@@ -114,6 +123,12 @@ export default Vue.defineComponent({
     grid-template-columns: 1fr auto 1fr;
 }
 
+.Trade-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .Trade-subTitle {
     opacity: 0.6;
     margin-block-start: 5px;
@@ -126,4 +141,10 @@ export default Vue.defineComponent({
     justify-self: center;
     align-self: center;
 }
+
+.Trade-back {
+    display: flex;
+    justify-content: flex-end;
+}
+
 </style>
