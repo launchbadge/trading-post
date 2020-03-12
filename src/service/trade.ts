@@ -112,3 +112,9 @@ export function removeInvalidOpenTrades(): void {
         }
     });
 }
+
+export function validatePendingTrades(): void {
+    Array.from(state.network.trades.values())
+        .filter((trade)=> !trade.isAccepted && trade.isValid)
+        .forEach((trade) => validateTrade(trade));
+}

@@ -5,7 +5,7 @@ import state from "../state";
 import { Gold } from "../../domain/tokens";
 import { validateSignature } from "../../service/crypto";
 import { Trade } from "../../domain/trade";
-import { validateTrade, removeInvalidOpenTrades } from "../../service/trade";
+import { validateTrade, removeInvalidOpenTrades, validatePendingTrades } from "../../service/trade";
 import { getTrade } from "../trade";
 
 let resolvePublish: (() => void) | null = null;
@@ -57,5 +57,6 @@ export function _handle(trade: Trade): void {
     trade.isAccepted = true;
     trade.isValid = false;
     removeInvalidOpenTrades();
+    validatePendingTrades();
     resolvePublish?.();
 }
