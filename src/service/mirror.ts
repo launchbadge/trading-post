@@ -5,7 +5,7 @@ import { ConsensusTopicIdLike } from "@hashgraph/sdk/lib/consensus/ConsensusTopi
 import {getRunningHash} from "./hedera"
 import state from "../store/state"
 // Envoy Proxy
-const MIRROR_NODE_ADDRESS = "http://localhost:11206";
+const MIRROR_NODE_ADDRESS = "http://157.230.197.21";
 
 const mirrorClient = new MirrorClient(MIRROR_NODE_ADDRESS);
 
@@ -25,6 +25,8 @@ export function startListening(topicId: ConsensusTopicIdLike) {
         .subscribe(mirrorClient, (response) => {
             let data;
 
+            console.debug("mirror", response.message);
+
             try {
                 data = JSON.parse(textDecoder.decode(response.message));
                 state.network.currentSequenceNumber = response.sequenceNumber;
@@ -34,6 +36,7 @@ export function startListening(topicId: ConsensusTopicIdLike) {
             } catch (err) {
                 // Event is unprocessable
                 // No worries
+                state.network.currentSequenceNumber += 1;
                 console.warn(err);
                 return;
             }

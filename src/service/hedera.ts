@@ -32,6 +32,8 @@ export async function getRunningHash(topicId: ConsensusTopicIdLike): Promise<voi
     const info = await new ConsensusTopicInfoQuery()
         .setTopicId(new ConsensusTopicId(topicId))
         .execute(client)
+
+    console.debug("sequenceLength", info.sequenceNumber);
     
     state.network.sequenceLength = info.sequenceNumber;
 }
