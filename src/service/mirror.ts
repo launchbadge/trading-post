@@ -42,12 +42,8 @@ export function startListening(topicId: ConsensusTopicIdLike) {
                 return;
             }
 
-            try {
-                if (state.network.currentSequenceNumber > state.network.sequenceLength) {
-                    state.network.sequenceLength = state.network.currentSequenceNumber + 1;
-                }
-            } catch (error) {
-                console.log(error);
+            if (response.sequenceNumber > state.network.sequenceLength) {
+                state.network.sequenceLength = response.sequenceNumber;
             }
 
             const event: Event = {
