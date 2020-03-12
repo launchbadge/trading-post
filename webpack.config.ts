@@ -134,14 +134,14 @@ const production: Configuration = {
         noEmitOnErrors: true,
         chunkIds: "natural",
         minimize: true,
-        usedExports: true,
-        minimizer: [
-            new TerserPlugin({
-                // cache does not work with Webpack 5
-                // <https://webpack.js.org/plugins/terser-webpack-plugin/#cache>
-                cache: false
-            })
-        ],
+        usedExports: false,
+        // minimizer: [
+        //     new TerserPlugin({
+        //         // cache does not work with Webpack 5
+        //         // <https://webpack.js.org/plugins/terser-webpack-plugin/#cache>
+        //         cache: false
+        //     })
+        // ],
         splitChunks: {
             cacheGroups: {
                 vendor: {
