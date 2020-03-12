@@ -87,7 +87,7 @@ export default Vue.defineComponent({
                         />
                     </div>
                     <div class="Trade-back">
-                        <Button onClick={() => router.push("/")}>Go Back</Button>
+                        <Button onClick={() => router.history.back()}>Go Back</Button>
                     </div>
                 </div>
             );
