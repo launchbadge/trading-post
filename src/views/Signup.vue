@@ -18,7 +18,7 @@ export default Vue.defineComponent({
         const name = Vue.ref("");
         const busy = Vue.ref(false);
         const isEmpty = Vue.ref(false);
-        const isLoaded = Vue.computed(() => state.network.sequenceLength > 0 && state.network.sequenceLength === state.network.currentSequenceNumber);
+        const isLoaded = Vue.computed(() => state.network.sequenceLength >= 0 && state.network.sequenceLength === state.network.currentSequenceNumber);
 
         const clearState = () => {
             name.value = "";
