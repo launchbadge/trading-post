@@ -8,7 +8,7 @@ import { AllEmoji } from "../domain/tokens";
 import state from "../store/state";
 import TradeRow from "./TradeRow.vue";
 import { useRouter } from "vue-router";
-import { validateTrade, removeInvalidOpenTrades } from "../service/trade";
+import { removeInvalidOpenTrades } from "../service/trade";
 
 interface Props {
     user: User;

@@ -18,14 +18,16 @@ export default Vue.defineComponent({
     setup(props: Props) {
         const router = useRouter();
 
-        return () => {
-            const trades = Array.from(
+        const trades = Vue.computed(() => {
+            return Array.from(
                 state.network.trades.values()
             ).filter(
                 (trade) => !state.network.openTrades.includes(trade.id)
             ).reverse().slice(0, 10);
+        });
 
-            if (trades.length === 0) {
+        return () => {
+            if (trades.value.length === 0) {
                 return (
                     <div class="Trades">
                         <div class="Trades-empty">
@@ -38,7 +40,7 @@ export default Vue.defineComponent({
             return (
                 <div class="Trades">
                     {
-                        trades.map((trade) => (
+                        trades.value.map((trade) => (
                             <TradeRow
                                 key={ trade.id }
                                 trade={ trade }

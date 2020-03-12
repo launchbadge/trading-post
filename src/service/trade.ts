@@ -5,7 +5,6 @@ import { Gold, hasSubset } from "../domain/tokens";
 import { getUser } from "../store/user";
 import BigNumber from "bignumber.js";
 import state from "../store/state";
-import { getTrade } from "../store/trade";
 
 export function parseTrade(event: TradeRequestEvent): Trade | undefined {
     let requestee: User | null;
@@ -46,13 +45,14 @@ export function parseTrade(event: TradeRequestEvent): Trade | undefined {
         isValid: true
     }
 
-    validateTrade(trade);
-
     return trade as Trade;
 }
 
 // WARNING: Mutates trade.isValid
-export function validateTrade(trade: Trade): boolean {
+export function validateTrade(id: number): boolean {
+    const trade = state.network.trades.get(id);
+    if (trade == null) return false;
+
     // Has the trade timed out?
     const expiration = new Date(trade.validStartAt);
     expiration.setSeconds(trade.validStartAt.getSeconds() + TRADE_DURATION);
@@ -104,7 +104,7 @@ export function validateTrade(trade: Trade): boolean {
 
 export function removeInvalidOpenTrades(): void {
     // Validate trades and remove invalid from openTrades
-    const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(getTrade(id)!))
+    const invalidTradeIds = state.network.openTrades.filter((id) => !validateTrade(id))
     invalidTradeIds.map((id) => {
         const index = state.network.openTrades.indexOf(id);
         if (index >= 0) {
@@ -113,8 +113,20 @@ export function removeInvalidOpenTrades(): void {
     });
 }
 
+export function onExpectedExpiration(id: number, callback: () => void): void {
+    const trade = state.network.trades.get(id);
+    if (trade == null) return;
+
+    const timeToWait = (TRADE_DURATION * 1000) - (new Date().getTime() - trade.validStartAt.getTime())
+    console.log(`will use callback on ${trade.id} in ${timeToWait} millis`);
+
+    window.setTimeout(() => {
+        callback();
+    }, timeToWait);
+}
+
 export function validatePendingTrades(): void {
     Array.from(state.network.trades.values())
         .filter((trade)=> !trade.isAccepted && trade.isValid)
-        .forEach((trade) => validateTrade(trade));
+        .forEach((trade) => validateTrade(trade.id));
 }

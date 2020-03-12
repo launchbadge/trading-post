@@ -4,7 +4,8 @@ import * as hedera from "../../service/hedera";
 import state from "../state";
 import { Emoji, Gold } from "../../domain/tokens";
 import { getCurrentUser } from "../user";
-import { parseTrade, validateTrade } from "../../service/trade";
+import { parseTrade, validateTrade, onExpectedExpiration } from "../../service/trade";
+import { TRADE_DURATION } from "../../domain/trade";
 
 let resolvePublish: (() => void) | null = null;
 
@@ -43,16 +44,17 @@ export function handle(event: TradeRequestEvent): void {
         const currentUserPublicKey = getCurrentUser()?.publicKey!;
 
         // Validate the trade
-        const isValid = validateTrade(trade);
+        const isValid = validateTrade(trade.id);
 
-        // Trade involves us
-        if (currentUserPublicKey === event.payload.requesteePublicKey ||
-            currentUserPublicKey === event.payload.requestorPublicKey) {
-                
-                // If the trade is valid, add it to openTrades
-                if (isValid) {
+        if (isValid) {
+            // Does the trade involve us? Add it to openTrades
+            if (currentUserPublicKey === event.payload.requesteePublicKey ||
+                currentUserPublicKey === event.payload.requestorPublicKey) {
                     state.network.openTrades.push(event.id);
-                }
+            } else {
+                // Check on it again when it should expire in case it wasn't accepted
+                onExpectedExpiration(trade.id, () => void validateTrade(trade.id));
+            }
         }
 
         // Resolve the last set promise (if any)
