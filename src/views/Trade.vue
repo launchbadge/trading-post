@@ -30,13 +30,6 @@ export default Vue.defineComponent({
             await router.push({ name: "Home" });
         }
 
-        function goToKabuto(): void {
-            const topic = state.topicId;
-            const message = tradeId;
-            const link = `https://explorer.kabuto.sh/testnet/topic/${topic}/message/${message}`
-            window.open(link);
-        }
-
         return () => {
             const trade: Trade | undefined = state.network.trades.get(Number(tradeId));
             if (trade == null) {
@@ -93,13 +86,8 @@ export default Vue.defineComponent({
                             onRemoveEmoji={()=>{}}
                         />
                     </div>
-                    <div class="Trade-buttons">
-                        <div class="Trade-kabuto">
-                            <Button onClick={ () => goToKabuto() } primary={ false }>View on Kabuto</Button>
-                        </div>
-                        <div class="Trade-back">
-                            <Button onClick={() => router.history.back()} primary={ false }>Go Back</Button>
-                        </div>
+                    <div class="Trade-back">
+                        <Button onClick={() => router.history.back()} primary={ false }>Go Back</Button>
                     </div>
                 </div>
             );
@@ -154,11 +142,9 @@ export default Vue.defineComponent({
     align-self: center;
 }
 
-.Trade-buttons {
-    align-items: center;
+.Trade-back {
     display: flex;
-    justify-content: space-between;
-    padding-block-start: 10px;
-    width: 100%;
+    justify-content: flex-end;
 }
+
 </style>
