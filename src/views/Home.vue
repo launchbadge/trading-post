@@ -24,13 +24,6 @@ export default Vue.defineComponent({
 
         return () => (
             <div class="Home">
-                <div class="Home-heading">
-                    Network
-                </div>
-                <NetworkMetrics />
-                <div class="Home-heading">
-                    Me
-                </div>
                 <UserRow
                     user={user.value}
                     onPressTrade={handlePressTrade}
@@ -41,6 +34,10 @@ export default Vue.defineComponent({
                 <OpenTrades
                     user={user.value}
                 />
+                <div class="Home-heading">
+                    Network
+                </div>
+                <NetworkMetrics />
                 <div class="Home-heading">
                     Recent Trades
                 </div>
