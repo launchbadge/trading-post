@@ -26,14 +26,20 @@ export async function publish(publicKey: Ed25519PublicKey, name: string): Promis
 }
 
 export function handle(event: AnnounceEvent): void {
-    const user: User = {
-        publicKey: event.payload.publicKey,
-        balance: {
-            emoji: take<Emoji>(state.network.availableEmoji, event.timestamp.valueOf(), 10),
-            gold: new BigNumber(10000) as Gold,
-        },
-        name: event.payload.name
-    };
+    let user = state.network.users.get(event.payload.publicKey);
+
+    if (user != null) {
+        user.name = event.payload.name;
+    } else {
+        user = {
+            publicKey: event.payload.publicKey,
+            balance: {
+                emoji: take<Emoji>(state.network.availableEmoji, event.timestamp.valueOf(), 10),
+                gold: new BigNumber(10000) as Gold,
+            },
+            name: event.payload.name
+        };
+    }   
 
     state.network.users.set(user.publicKey, user);
     // If someone is waiting for a resolution on an announce, trigger the promise
