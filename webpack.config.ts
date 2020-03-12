@@ -2,6 +2,8 @@ import path from "path";
 import merge from "webpack-merge";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 import VueLoaderPlugin from "vue-loader/dist/plugin";
 import Dotenv from "dotenv-webpack";
 import { Configuration, Options } from "webpack";
@@ -38,17 +40,6 @@ const common: Configuration = {
                 use: "vue-loader"
             },
             {
-                test: /\.css$/u,
-                use: [
-                    "style-loader",
-                    {
-                        loader: "css-loader",
-                        options: { importLoaders: 1 }
-                    },
-                    "postcss-loader"
-                ]
-            },
-            {
                 test: /\.(png|svg|jpg|gif)$/u,
                 include: path.resolve(__dirname, "src"),
                 use: [
@@ -76,7 +67,6 @@ const common: Configuration = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new Dotenv(),
         // @ts-ignore
         new VueLoaderPlugin(),
@@ -91,6 +81,21 @@ const common: Configuration = {
 const development: Configuration = {
     mode: "development",
     devtool: "cheap-module-source-map" as Options.Devtool,
+    module: {
+        rules: [
+            {
+                test: /\.css$/u,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: { importLoaders: 1 }
+                    },
+                    "postcss-loader"
+                ]
+            },
+        ]
+    }
 };
 
 // TODO: Use https://webpack.js.org/plugins/mini-css-extract-plugin/
@@ -98,7 +103,57 @@ const production: Configuration = {
     mode: "production",
     plugins: [
         new CleanWebpackPlugin(),
-    ]
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css",
+        }),
+    ],
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "[name].[contenthash].js"
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/u,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: { esModule: true }
+                    },
+                    {
+                        loader: "css-loader",
+                        options: { importLoaders: 1 }
+                    },
+                    "postcss-loader"
+                ]
+            },
+        ]
+    },
+    optimization: {
+        runtimeChunk: "single",
+        noEmitOnErrors: true,
+        chunkIds: "natural",
+        minimize: true,
+        usedExports: true,
+        minimizer: [
+            new TerserPlugin({
+                // cache does not work with Webpack 5
+                // <https://webpack.js.org/plugins/terser-webpack-plugin/#cache>
+                cache: false
+            })
+        ],
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: "vendor",
+                    test: /[/\\]node_modules[/\\]/u,
+                    chunks: "all",
+                    enforce: true,
+                    priority: -10
+                }
+            }
+        }
+    }
 };
 
 export default merge(
