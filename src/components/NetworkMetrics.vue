@@ -8,18 +8,18 @@ import { AllEmoji } from "../domain/tokens";
 export default Vue.defineComponent({
     name: "NetworkMetrics",
     setup() {
-        const starEmojiMetric = Vue.computed(() => metrics.mostRequestedEmoji() as metrics.EmojiMetric);
-        const commonEmojiMetric = Vue.computed(() => metrics.mostAcceptedEmoji() as metrics.EmojiMetric);
-        const emojiWhaleMetric = Vue.computed(() => metrics.userWithMostEmoji() as metrics.UserMetric);
-        const goldWhaleMetric = Vue.computed(() => metrics.userWithMostGold() as metrics.UserMetric);
+        const starEmojiMetric = Vue.computed(() => metrics.mostRequestedEmoji());
+        const commonEmojiMetric = Vue.computed(() => metrics.mostAcceptedEmoji());
+        const emojiWhaleMetric = Vue.computed(() => metrics.userWithMostEmoji());
+        const goldWhaleMetric = Vue.computed(() => metrics.userWithMostGold());
         
         const starEmoji = Vue.computed(() => 
         <div class="emojiMetric">
-            { AllEmoji[ starEmojiMetric.value.value ] }
+            { starEmojiMetric.value != null ? AllEmoji[ starEmojiMetric.value.value ] : "-" }
         </div>);
         const commonEmoji = Vue.computed(() => 
         <div class="emojiMetric">
-            { AllEmoji[ commonEmojiMetric.value.value ] }
+            { commonEmojiMetric.value != null ? AllEmoji[ commonEmojiMetric.value.value ] : "-"}
         </div>);
         const emojiWhale = Vue.computed(() => 
         <div class="userMetric">
@@ -34,12 +34,12 @@ export default Vue.defineComponent({
             <div class="NetworkMetrics-main">
                 <Metric 
                     title="Most Wanted Emoji" 
-                    value={ `${starEmojiMetric.value.count} Requests` }>
+                    value={ starEmojiMetric.value != null ? `${starEmojiMetric.value.count} Requests` : "" }>
                     { starEmoji.value }
                  </Metric>
                 <Metric 
                     title="Most Traded Emoji" 
-                    value={ `${commonEmojiMetric.value.count} Trades` }>
+                    value={ commonEmojiMetric.value != null ? `${commonEmojiMetric.value.count} Trades`: "" }>
                     { commonEmoji.value }
                 </Metric>
                 <Metric 
