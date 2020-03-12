@@ -13,7 +13,7 @@ export default Vue.defineComponent({
     setup(props: Props) {
         return () => (
             <div class={["GoldAmount", { "GoldAmount-reverse": props.reverse } ]}>
-                <div>{ props.amount }</div>
+                <div class="GoldAmount-amount">{ props.amount }</div>
                 <Icon class="GoldAmount-icon" d={ mdiCoinOutline } />
             </div>
         );
@@ -30,6 +30,13 @@ export default Vue.defineComponent({
     & > :first-child {
         margin-inline-end: 8px;
     }
+}
+
+.GoldAmount-amount {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .GoldAmount-reverse {
