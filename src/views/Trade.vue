@@ -87,7 +87,7 @@ export default Vue.defineComponent({
                         />
                     </div>
                     <div class="Trade-back">
-                        <Button onClick={() => router.history.back()}>Go Back</Button>
+                        <Button onClick={() => router.history.back()} primary={ false }>Go Back</Button>
                     </div>
                 </div>
             );

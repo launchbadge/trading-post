@@ -55,7 +55,7 @@ export default Vue.defineComponent({
                             />
                         ))
                     }
-                    <Button class="Trades-allTrades" onClick={ handleClick }>All Trades</Button>
+                    <Button class="Trades-allTrades" onClick={ handleClick } primary={ false }>All Trades</Button>
                 </div>
             );
         };
