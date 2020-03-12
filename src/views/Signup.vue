@@ -31,7 +31,7 @@ export default Vue.defineComponent({
 
         const handleSubmit = (event: Event) => {
             event.preventDefault();
-            if (name.value.length > 0) {
+            if (name.value.length > 0 && name.value.length < 21 ) {
                 void store.createNewUserIfNeeded(name.value);
                 isEmpty.value = false;
                 busy.value = true;
@@ -48,7 +48,7 @@ export default Vue.defineComponent({
                 { isLoaded.value? <form class="Signup-form">
                     <label class="label" for="name">Name</label>
                     <input class="input" name="name" onChange={handleChange} type="text" value={name.value}/>
-                    <div class="error">{ isEmpty.value ? "Name is required" : "" }</div>
+                    <div class="error">{ isEmpty.value ? "Name is required (must be 20 characters or less)" : "" }</div>
                     <div class="Signup-button">
                         <Button
                             onClick={handleSubmit}

@@ -38,6 +38,10 @@ export default Vue.defineComponent({
 
 .User-name {
     margin-block-end: 6px;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .User-key {
