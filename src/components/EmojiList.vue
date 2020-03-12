@@ -15,7 +15,7 @@ export default Vue.defineComponent({
             <div class="EmojiList">
                 {
                     Array.from(props.emoji).map((i) => (
-                        <div class="EmojiList-emoji">{ AllEmoji[i] }</div>
+                        <div data-emoji={i} class="EmojiList-emoji">{ AllEmoji[i] }</div>
                     ))
                 }
             </div>
