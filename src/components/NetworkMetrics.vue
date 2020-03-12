@@ -60,13 +60,22 @@ export default Vue.defineComponent({
 
 <style>
 .NetworkMetrics-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     background-color: var(--colorBlackGrey);
     color: var(--colorWhite);
     padding: 16px;
     border-radius: 2px;
-    display: flex;
     align-items: center;
-    justify-content: space-between;
+    
+
+}
+@media (max-width: 930px){
+    .NetworkMetrics-main {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 50px;
+    }
 }
 
 .emojiMetric {
