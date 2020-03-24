@@ -4,8 +4,9 @@ import { handle } from "../store/events/handle";
 import { ConsensusTopicIdLike } from "@hashgraph/sdk/lib/consensus/ConsensusTopicId";
 import {getRunningHash} from "./hedera"
 import state from "../store/state"
+
 // Envoy Proxy
-const MIRROR_NODE_ADDRESS = "https://grpc-web.api.testnet.kabuto.sh";
+const MIRROR_NODE_ADDRESS = "http://localhost:11206";
 
 const mirrorClient = new MirrorClient(MIRROR_NODE_ADDRESS);
 
